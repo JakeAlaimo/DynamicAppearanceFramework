@@ -10,9 +10,14 @@
 /// </summary>
 class ITraitTransformationReader
 {
+public:
+    /// <summary>Provides transformation group indexed by the trait that group governs</summary>
     virtual std::map<std::string, ITransformationGroup> GetTransformationGroupsByTraitID() = 0;
 
+    /// <summary>Gets a list of all the tracked properties that govern traits</summary>
     virtual std::vector<std::string> GetTrackedProperties() = 0;
-    virtual std::map<std::string, std::vector<std::string>> GetTrackedPropertiesByTraitID() = 0;
+
+    /// <summary>Provides a map of tracked properties to the traits they govern</summary>
+    virtual std::map<std::string, std::vector<std::string>> GetManagedTraitIDsByTrackedProperty() = 0;
 };
 

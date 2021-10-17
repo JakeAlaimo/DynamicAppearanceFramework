@@ -6,6 +6,7 @@
 /// </summary>
 class ITransformation
 {
+public:
     /// <summary>Returns the type of transformation this result represents (and thus how the data should be interpreted)</summary>
     virtual TraitType GetTraitType() = 0;
 
@@ -13,5 +14,5 @@ class ITransformation
     virtual void* GetTransformationData() = 0;
 
     /// <summary>Returns the linear blend from this to the other transformation, at the percent specified<summary>
-    virtual ITransformation Lerp(ITransformation other, float lerpVal);
+    virtual ITransformation Lerp(ITransformation other, float lerpVal) = 0;
 };
