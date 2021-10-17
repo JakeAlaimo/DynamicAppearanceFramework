@@ -1,5 +1,7 @@
 #pragma once
 #include "../TraitType.h"
+#include <vector>
+#include <memory>
 
 /// <summary>
 /// Interface to a bundle of data that can be acted on and applied to perform the transformation of some trait
@@ -14,5 +16,5 @@ public:
     virtual void* GetTransformationData() = 0;
 
     /// <summary>Returns the linear blend from this to the other transformation, at the percent specified<summary>
-    virtual std::shared_ptr<ITransformation> Lerp(std::shared_ptr<ITransformation> other, float lerpVal) = 0;
+    virtual std::shared_ptr<ITransformation> LerpTo(ITransformation &other, float lerpVal) = 0;
 };

@@ -22,7 +22,7 @@ public:
 
     TransformationController(std::string controllingProperty);
 
-    TransformationControllerOut Evaluate(std::shared_ptr<IActorTrackedProperties> properties, std::shared_ptr<ITransformation> defaultTransformation);
+    TransformationControllerOut Evaluate(IActorTrackedProperties &properties, ITransformation &defaultTransformation);
 
     void AddTransformationTarget(std::shared_ptr<ITransformation> transformation, float targetPropertyValue);
 

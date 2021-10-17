@@ -14,7 +14,7 @@ namespace SharedFrameworkTest
 		TEST_METHOD(ConstructorWithoutStartingValues_Succeeds)
 		{
 			MockTraitTransformationReader reader = MockTraitTransformationReader();
-			ActorTrackedProperties properties = ActorTrackedProperties(&reader);
+			ActorTrackedProperties properties = ActorTrackedProperties(reader);
 
 			Assert::AreEqual((size_t)3, properties.GetAllTrackedProperties().size());
 			Assert::AreEqual((size_t)2, properties.SetTrackedPropertyValue("Assaults", 10.0f).size());
@@ -28,7 +28,7 @@ namespace SharedFrameworkTest
 			cachedTrackedProperties["Days Without Sleep"] = 3.0f;
 
 			MockTraitTransformationReader reader = MockTraitTransformationReader();
-			ActorTrackedProperties properties = ActorTrackedProperties(&reader, cachedTrackedProperties);
+			ActorTrackedProperties properties = ActorTrackedProperties(reader, cachedTrackedProperties);
 
 			Assert::AreEqual(50.0f, properties.GetTrackedPropertyValue("Assaults"));
 			Assert::AreEqual(3.0f, properties.GetTrackedPropertyValue("Days Without Sleep"));
@@ -39,37 +39,18 @@ namespace SharedFrameworkTest
 			Assert::AreEqual(10.0f, properties.GetTrackedPropertyValue("Assaults"));
 		}
 
-		TEST_METHOD(GracefullyHandlesNoReaderProvided_Succeeds)
-		{
-			ActorTrackedProperties properties = ActorTrackedProperties(nullptr);
-
-			Assert::AreEqual((size_t)0, properties.GetAllTrackedProperties().size());
-			Assert::AreEqual((size_t)0, properties.SetTrackedPropertyValue("some property that isn't tracked", 1.0f).size());
-			Assert::AreEqual(0.0f, properties.GetTrackedPropertyValue("some property that isn't tracked"));
-
-			// repeat with the other constructor 
-
-			std::map<std::string, float> cachedTrackedProperties;
-			cachedTrackedProperties["property 1"] = 50.0f;
-			cachedTrackedProperties["property 2"] = 25.0f;
-			
-			properties = ActorTrackedProperties(nullptr, cachedTrackedProperties);
-
-			Assert::AreEqual((size_t)0, properties.GetAllTrackedProperties().size());
-			Assert::AreEqual((size_t)0, properties.SetTrackedPropertyValue("property 1", 51.0f).size());
-			Assert::AreEqual(0.0f, properties.GetTrackedPropertyValue("property 2"));
-		}
-
 		TEST_METHOD(GetSetActorName_Succeeds)
 		{
-			ActorTrackedProperties properties = ActorTrackedProperties(nullptr);
+			MockTraitTransformationReader reader = MockTraitTransformationReader();
+			ActorTrackedProperties properties = ActorTrackedProperties(reader);
 			properties.SetActorName("Actor");
 			Assert::AreEqual((std::string)"Actor", properties.GetActorName());
 		}
 
 		TEST_METHOD(GetActorNameUnspecified_Succeeds)
 		{
-			ActorTrackedProperties properties = ActorTrackedProperties(nullptr);
+			MockTraitTransformationReader reader = MockTraitTransformationReader();
+			ActorTrackedProperties properties = ActorTrackedProperties(reader);
 			Assert::AreEqual((std::string)"", properties.GetActorName());
 		}
 

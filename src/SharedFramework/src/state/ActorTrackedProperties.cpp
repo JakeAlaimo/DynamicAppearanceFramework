@@ -1,27 +1,21 @@
 #include "ActorTrackedProperties.h"
 
-ActorTrackedProperties::ActorTrackedProperties(std::shared_ptr<ITraitTransformationReader> transformationReader)
+ActorTrackedProperties::ActorTrackedProperties(ITraitTransformationReader &transformationReader)
 {
-    if (transformationReader == nullptr)
-        return;
-
     //populate the tracked property map
-    for (std::string propertyName : transformationReader->GetTrackedProperties())
+    for (std::string propertyName : transformationReader.GetTrackedProperties())
     {
         m_trackedProperties[propertyName] = 0.0f;
     }
 
     //store property -> governed traits so we can determine traits modified by updating property values
-    m_managedTraitIDsByTrackedProperty = transformationReader->GetManagedTraitIDsByTrackedProperty();
+    m_managedTraitIDsByTrackedProperty = transformationReader.GetManagedTraitIDsByTrackedProperty();
 }
 
-ActorTrackedProperties::ActorTrackedProperties(std::shared_ptr<ITraitTransformationReader> transformationReader, std::map<std::string, float> startingPropertyValues)
+ActorTrackedProperties::ActorTrackedProperties(ITraitTransformationReader &transformationReader, std::map<std::string, float> startingPropertyValues)
 {
-    if (transformationReader == nullptr)
-        return;
-
     //populate the tracked property map
-    for (std::string propertyName : transformationReader->GetTrackedProperties())
+    for (std::string propertyName : transformationReader.GetTrackedProperties())
     {
         float propertyValue = 0.0f;
 
@@ -35,7 +29,7 @@ ActorTrackedProperties::ActorTrackedProperties(std::shared_ptr<ITraitTransformat
     }
 
     //store property -> governed traits so we can determine traits modified by updating property values
-    m_managedTraitIDsByTrackedProperty = transformationReader->GetManagedTraitIDsByTrackedProperty();
+    m_managedTraitIDsByTrackedProperty = transformationReader.GetManagedTraitIDsByTrackedProperty();
 }
 
 float ActorTrackedProperties::GetTrackedPropertyValue(std::string propertyName)
@@ -54,7 +48,6 @@ std::vector<std::string> ActorTrackedProperties::SetTrackedPropertyValue(std::st
         m_trackedProperties[propertyName] = value;
         return m_managedTraitIDsByTrackedProperty[propertyName];
     }
-
     return std::vector<std::string>();
 }
 
