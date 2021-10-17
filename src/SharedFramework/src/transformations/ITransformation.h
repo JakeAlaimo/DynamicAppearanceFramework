@@ -14,5 +14,5 @@ public:
     virtual void* GetTransformationData() = 0;
 
     /// <summary>Returns the linear blend from this to the other transformation, at the percent specified<summary>
-    virtual ITransformation Lerp(ITransformation* other, float lerpVal) = 0;
+    virtual std::shared_ptr<ITransformation> Lerp(std::shared_ptr<ITransformation> other, float lerpVal) = 0;
 };

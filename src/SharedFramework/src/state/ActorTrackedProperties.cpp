@@ -1,6 +1,6 @@
 #include "ActorTrackedProperties.h"
 
-ActorTrackedProperties::ActorTrackedProperties(ITraitTransformationReader* transformationReader)
+ActorTrackedProperties::ActorTrackedProperties(std::shared_ptr<ITraitTransformationReader> transformationReader)
 {
     if (transformationReader == nullptr)
         return;
@@ -15,7 +15,7 @@ ActorTrackedProperties::ActorTrackedProperties(ITraitTransformationReader* trans
     m_managedTraitIDsByTrackedProperty = transformationReader->GetManagedTraitIDsByTrackedProperty();
 }
 
-ActorTrackedProperties::ActorTrackedProperties(ITraitTransformationReader* transformationReader, std::map<std::string, float> startingPropertyValues)
+ActorTrackedProperties::ActorTrackedProperties(std::shared_ptr<ITraitTransformationReader> transformationReader, std::map<std::string, float> startingPropertyValues)
 {
     if (transformationReader == nullptr)
         return;

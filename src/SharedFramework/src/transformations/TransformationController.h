@@ -2,17 +2,18 @@
 #include <string>
 #include <vector>
 #include <utility>
+#include <memory>
 #include "ITransformation.h"
 #include "../state/IActorTrackedProperties.h"
 
 struct TransformationControllerOut {
-    ITransformation* transformation;
+    std::shared_ptr<ITransformation> transformation;
     //additional blend configuration controls
 };
 
 struct TransformationTarget {
     float propertyValue;
-    ITransformation* transformation;
+    std::shared_ptr<ITransformation> transformation;
 };
 
 class TransformationController
@@ -21,9 +22,9 @@ public:
 
     TransformationController(std::string controllingProperty);
 
-    TransformationControllerOut Evaluate(IActorTrackedProperties* properties, ITransformation* defaultTransformation);
+    TransformationControllerOut Evaluate(std::shared_ptr<IActorTrackedProperties> properties, std::shared_ptr<ITransformation> defaultTransformation);
 
-    void AddTransformationTarget(ITransformation* transformation, float targetPropertyValue);
+    void AddTransformationTarget(std::shared_ptr<ITransformation> transformation, float targetPropertyValue);
 
 private:
 

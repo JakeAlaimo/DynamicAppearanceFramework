@@ -2,6 +2,7 @@
 #include <map>
 #include "IActorTrackedProperties.h"
 #include "../parse/ITraitTransformationReader.h"
+#include <memory>
 
 /// <summary>
 /// Standard concrete implementation for a particular character's tracked property state representation
@@ -10,10 +11,10 @@
 class ActorTrackedProperties: public IActorTrackedProperties
 {
 public:
-    ActorTrackedProperties(ITraitTransformationReader* transformationReader);
+    ActorTrackedProperties(std::shared_ptr<ITraitTransformationReader> transformationReader);
 
     /// <summary>Sets starting property values to those specified (rather than 0 every time) </summary>
-    ActorTrackedProperties(ITraitTransformationReader* transformationReader, std::map<std::string, float> startingPropertyValues);
+    ActorTrackedProperties(std::shared_ptr<ITraitTransformationReader> transformationReader, std::map<std::string, float> startingPropertyValues);
 
 
     /// <summary>Get this character's current value for a particular tracked property</summary>

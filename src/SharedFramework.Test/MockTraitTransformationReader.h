@@ -22,7 +22,7 @@ public:
     }
 
     /// <summary>Provides transformation group indexed by the trait that group governs</summary>
-    std::map<std::string, ITransformationGroup*> GetTransformationGroupsByTraitID() 
+    std::map<std::string, std::shared_ptr<ITransformationGroup>> GetTransformationGroupsByTraitID() 
     {
         return m_groupsByTrait;
     }
@@ -41,7 +41,7 @@ public:
 
 private:
 
-    std::map<std::string, ITransformationGroup*> m_groupsByTrait;
+    std::map<std::string, std::shared_ptr<ITransformationGroup>> m_groupsByTrait;
     std::vector<std::string> m_properties;
     std::map<std::string, std::vector<std::string>> m_traitsByProperty;
 };
