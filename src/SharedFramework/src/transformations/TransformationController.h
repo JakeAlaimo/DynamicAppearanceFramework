@@ -21,9 +21,9 @@ public:
 
     TransformationController(std::string controllingProperty);
 
-    TransformationControllerOut Evaluate(IActorTrackedProperties* properties, ITransformation defaultTransformation);
+    TransformationControllerOut Evaluate(IActorTrackedProperties* properties, ITransformation* defaultTransformation);
 
-    void AddTransformationTarget(ITransformation transformation, float targetPropertyValue);
+    void AddTransformationTarget(ITransformation* transformation, float targetPropertyValue);
 
 private:
 

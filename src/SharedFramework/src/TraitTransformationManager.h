@@ -22,13 +22,13 @@ public:
     ~TraitTransformationManager();
 
 
-    std::vector<ITransformation> ApplyAllTransformationGroups();
-    std::vector<ITransformation> RevertAllTransformationGroups();
+    std::vector<ITransformation*> ApplyAllTransformationGroups();
+    std::vector<ITransformation*> RevertAllTransformationGroups();
 
-    ITransformation ApplyTransformationGroup(std::string traitID);
+    ITransformation* ApplyTransformationGroup(std::string traitID);
 
 
-    void SetDefaultTransformationForTrait(std::string traitID, ITransformation defaultTransformation);
+    void SetDefaultTransformationForTrait(std::string traitID, ITransformation* defaultTransformation);
 
 
 

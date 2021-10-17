@@ -24,5 +24,5 @@ public:
     /// Set the base trait value this transformation group modifies
     /// </summary>
     /// <param name="defaultValue">The new default value to use for this trait. The value without transformations</param>
-    virtual void SetDefaultValue(ITransformation defaultValue) = 0;
+    virtual void SetDefaultValue(ITransformation* defaultValue) = 0;
 };
