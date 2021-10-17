@@ -31,5 +31,14 @@ public:
     /// <summary>Get this character's current value for a particular tracked property</summary>
     /// <returns>A list of all the actors tracked property key-value pairs</returns>
     virtual std::vector<TrackedProperty> GetAllTrackedProperties() = 0;
+
+    /// <summary>Get this character's current name within the system</summary>
+    /// <returns>The character's name in the system</returns>
+    virtual std::string GetActorName() = 0;
+
+    /// <summary>Update this character's current name within the system</summary>
+    /// <params name="newName">The new name to associate this character with</params>
+    virtual void SetActorName(std::string newName) = 0;
+
 };
 

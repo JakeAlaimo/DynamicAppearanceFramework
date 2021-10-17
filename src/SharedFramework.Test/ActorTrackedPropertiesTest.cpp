@@ -59,6 +59,20 @@ namespace SharedFrameworkTest
 			Assert::AreEqual((size_t)0, properties.SetTrackedPropertyValue("property 1", 51.0f).size());
 			Assert::AreEqual(0.0f, properties.GetTrackedPropertyValue("property 2"));
 		}
+
+		TEST_METHOD(GetSetActorName_Succeeds)
+		{
+			ActorTrackedProperties properties = ActorTrackedProperties(nullptr);
+			properties.SetActorName("Actor");
+			Assert::AreEqual((std::string)"Actor", properties.GetActorName());
+		}
+
+		TEST_METHOD(GetActorNameUnspecified_Succeeds)
+		{
+			ActorTrackedProperties properties = ActorTrackedProperties(nullptr);
+			Assert::AreEqual((std::string)"", properties.GetActorName());
+		}
+
 	};
 }
 

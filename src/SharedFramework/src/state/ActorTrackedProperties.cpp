@@ -74,6 +74,15 @@ std::vector<TrackedProperty> ActorTrackedProperties::GetAllTrackedProperties()
     return trackedProperties;
 }
 
+std::string ActorTrackedProperties::GetActorName() 
+{
+    return actorName;
+}
+
+void ActorTrackedProperties::SetActorName(std::string newName) 
+{
+    actorName = newName;
+}
 
 bool ActorTrackedProperties::Contains(std::string propertyName)
 {

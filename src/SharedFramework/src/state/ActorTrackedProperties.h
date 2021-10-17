@@ -31,12 +31,23 @@ public:
     /// <returns>A list of all the actors tracked property key-value pairs</returns>
     std::vector<TrackedProperty> GetAllTrackedProperties();
 
+    /// <summary>Get this character's current name within the system</summary>
+    /// <returns>The character's name in the system</returns>
+    std::string GetActorName();
+
+    /// <summary>Update this character's current name within the system</summary>
+    /// <params name="newName">The new name to associate this character with</params>
+    void SetActorName(std::string newName);
+
     /// <summary>Returns whether the given property is being tracked by this object</summary>
     /// <param name="propertyName">The property to check if it is being tracking</param>
     /// <returns>True if the given property name is tracked</returns>
     bool Contains(std::string propertyName);
 
 private:
+
+    ///<summary>The name associated with this state</summary>
+    std::string actorName;
 
     ///<summary>Internal mapping of tracked property names to property values</summary>
     std::map<std::string, float> m_trackedProperties;
