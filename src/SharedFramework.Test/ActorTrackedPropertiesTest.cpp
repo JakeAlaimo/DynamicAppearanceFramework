@@ -13,8 +13,8 @@ namespace SharedFrameworkTest
 	public:
 		TEST_METHOD(ConstructorWithoutStartingValues_Succeeds)
 		{
-			MockTraitTransformationReader* reader = new MockTraitTransformationReader();
-			ActorTrackedProperties properties = ActorTrackedProperties(reader);
+			MockTraitTransformationReader reader = MockTraitTransformationReader();
+			ActorTrackedProperties properties = ActorTrackedProperties(&reader);
 
 			Assert::AreEqual((size_t)3, properties.GetAllTrackedProperties().size());
 			Assert::AreEqual((size_t)2, properties.SetTrackedPropertyValue("Assaults", 10.0f).size());
