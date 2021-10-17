@@ -10,8 +10,11 @@
 class ActorTrackedProperties: public IActorTrackedProperties
 {
 public:
-
     ActorTrackedProperties(ITraitTransformationReader* transformationReader);
+
+    /// <summary>Sets starting property values to those specified (rather than 0 every time) </summary>
+    ActorTrackedProperties(ITraitTransformationReader* transformationReader, std::map<std::string, float> startingPropertyValues);
+
 
     /// <summary>Get this character's current value for a particular tracked property</summary>
     /// <param name="propertyName">The property value we'd like to receive</param>
@@ -22,7 +25,7 @@ public:
     /// <param name="propertyName">The tracked property we'd like to modify the value of</param>
     /// <param name="value">The value we'd like to set the specified property to</param>
     /// <returns>A list of all the trait IDs modified by changing the property value</returns>
-    std::vector<std::string> SetTrackedPropertyValue(std::string propertyName, float value) = 0;
+    std::vector<std::string> SetTrackedPropertyValue(std::string propertyName, float value);
 
     /// <summary>Get this character's current value for a particular tracked property</summary>
     /// <returns>A list of all the actors tracked property key-value pairs</returns>
@@ -37,5 +40,8 @@ private:
 
     ///<summary>Internal mapping of tracked property names to property values</summary>
     std::map<std::string, float> m_trackedProperties;
+
+    ///<summary>Internal mapping of the traits governed per-property</summary>
+    std::map<std::string, std::vector<std::string>> m_managedTraitIDsByTrackedProperty;
 };
 
