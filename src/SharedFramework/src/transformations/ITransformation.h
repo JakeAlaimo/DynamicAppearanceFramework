@@ -17,4 +17,7 @@ public:
 
     /// <summary>Returns the linear blend from this to the other transformation, at the percent specified<summary>
     virtual std::shared_ptr<ITransformation> LerpTo(ITransformation &other, float lerpVal) = 0;
+
+    /// <summary>Returns the blend of all transformations in the list given their weighting factors<summary>
+    virtual std::shared_ptr<ITransformation> WeightedAverage(std::vector<std::pair<ITransformation&, float>> weightedTransformations) = 0;
 };

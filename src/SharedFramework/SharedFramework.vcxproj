@@ -22,12 +22,15 @@
     <ClInclude Include="src\mock\MockActorTrackedProperties.h" />
     <ClInclude Include="src\state\ActorTrackedProperties.h" />
     <ClInclude Include="src\state\IActorTrackedProperties.h" />
+    <ClInclude Include="src\TraitType.h" />
     <ClInclude Include="src\TraitTransformationManager.h" />
+    <ClInclude Include="src\transformations\ITransformation.h" />
+    <ClInclude Include="src\transformations\TransformationCurve.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\mock\MockActorTrackedProperties.cpp" />
     <ClCompile Include="src\state\ActorTrackedProperties.cpp" />
     <ClCompile Include="src\TraitTransformationManager.cpp" />
+    <ClCompile Include="src\transformations\TransformationCurve.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
