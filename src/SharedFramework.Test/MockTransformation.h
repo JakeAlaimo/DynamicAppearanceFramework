@@ -13,7 +13,12 @@ public:
     /// <summary>Returns the type of transformation this result represents (and thus how the data should be interpreted)</summary>
     TraitType GetTraitType()
     {
-        return TraitType::Morph;
+        return traitType;
+    }
+
+    void ForceTraitType(TraitType newType)
+    {
+        traitType = newType;
     }
 
     /// <summary>Returns the data needed to apply this transformation</summary>
@@ -64,5 +69,5 @@ public:
 private:
 
     float value;
-
+    TraitType traitType = TraitType::Morph;
 };

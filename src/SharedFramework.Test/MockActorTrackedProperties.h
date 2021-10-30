@@ -31,11 +31,15 @@ public:
 
     std::string GetActorName()
     {
-        return "MockActor";
+        return name;
     }
 
     void SetActorName(std::string newName)
     {
+        name = newName;
     }
 
+
+private:
+    std::string name = "MockActor";
 };
