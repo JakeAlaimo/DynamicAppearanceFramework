@@ -19,11 +19,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\mock\MockActorTrackedProperties.h" />
+    <ClInclude Include="src\parse\ITraitTransformationReader.h" />
     <ClInclude Include="src\state\ActorTrackedProperties.h" />
     <ClInclude Include="src\state\IActorTrackedProperties.h" />
     <ClInclude Include="src\TraitType.h" />
     <ClInclude Include="src\TraitTransformationManager.h" />
+    <ClInclude Include="src\transformations\TransformationGroup.h" />
     <ClInclude Include="src\transformations\ITransformation.h" />
     <ClInclude Include="src\transformations\TransformationCurve.h" />
   </ItemGroup>

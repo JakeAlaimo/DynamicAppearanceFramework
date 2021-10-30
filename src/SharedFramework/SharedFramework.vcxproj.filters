@@ -24,7 +24,9 @@
     <ClInclude Include="src\state\ActorTrackedProperties.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\mock\MockActorTrackedProperties.h">
+    <ClInclude Include="src\parse\ITraitTransformationReader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="src\TraitType.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -32,6 +34,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\transformations\TransformationCurve.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\transformations\TransformationGroup.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

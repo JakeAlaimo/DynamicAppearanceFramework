@@ -3,7 +3,7 @@
 #include <vector>
 #include <string>
 #include <memory>
-#include "../transformations/ITransformationGroup.h"
+#include "../transformations/TransformationGroup.h"
 
 /// <summary>
 /// Interface to a utility that reads in trait transformation specification files and provides 
@@ -13,7 +13,7 @@ class ITraitTransformationReader
 {
 public:
     /// <summary>Provides transformation group indexed by the trait that group governs</summary>
-    virtual std::map<std::string, std::shared_ptr<ITransformationGroup>> GetTransformationGroupsByTraitID() = 0;
+    virtual std::map<std::string, std::shared_ptr<TransformationGroup>> GetTransformationGroupsByTraitID() = 0;
 
     /// <summary>Gets a list of all the tracked properties that govern traits</summary>
     virtual std::vector<std::string> GetTrackedProperties() = 0;

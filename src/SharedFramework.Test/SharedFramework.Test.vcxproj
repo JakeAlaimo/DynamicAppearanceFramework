@@ -170,7 +170,6 @@
     <ClInclude Include="MockActorTrackedProperties.h" />
     <ClInclude Include="MockTraitTransformationReader.h" />
     <ClInclude Include="MockTransformation.h" />
-    <ClInclude Include="MockTransformationGroup.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
