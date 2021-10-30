@@ -18,6 +18,18 @@ namespace SharedFrameworkTest
 			TransformationCurve curve = TransformationCurve(TraitType::Morph, "Assaults");
 		}
 
+		TEST_METHOD(GetControllingProperty_Succeeds)
+		{
+			TransformationCurve curve = TransformationCurve(TraitType::Morph, "Assaults");
+			Assert::AreEqual((std::string)"Assaults", curve.GetControllingProperty());
+		}
+
+		TEST_METHOD(GetType_Succeeds)
+		{
+			TransformationCurve curve = TransformationCurve(TraitType::Morph, "Assaults");
+			Assert::AreEqual((int)TraitType::Morph, (int)curve.GetType());
+		}
+
 		TEST_METHOD(AddingValidKeys_Succeeds)
 		{
 			TransformationCurve curve = TransformationCurve(TraitType::Morph, "Assaults");

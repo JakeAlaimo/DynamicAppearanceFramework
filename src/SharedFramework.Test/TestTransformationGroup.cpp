@@ -9,7 +9,7 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace SharedFrameworkTest
 {
-	TEST_CLASS(TraitTransformatioGroupTest)
+	TEST_CLASS(TraitTransformationGroupTest)
 	{
 	public:
 		TEST_METHOD(Constructor_Succeeds)
@@ -55,13 +55,13 @@ namespace SharedFrameworkTest
 			std::shared_ptr<MockTransformation> defaultTransformation = std::make_shared<MockTransformation>(0.0f);
 
 			TransformationGroup group = TransformationGroup(TraitType::Morph, defaultTransformation);
-			TransformationCurve assaultsCurve = TransformationCurve(TraitType::Morph, "Assaults");
-			TransformationCurve noSleepCurve = TransformationCurve(TraitType::Morph, "Days Without Sleep");
+			std::shared_ptr<TransformationCurve> assaultsCurve = std::make_shared<TransformationCurve>(TraitType::Morph, "Assaults");
+			std::shared_ptr<TransformationCurve> noSleepCurve = std::make_shared<TransformationCurve>(TraitType::Morph, "Days Without Sleep");
 
 			std::shared_ptr<MockTransformation> transformation = std::make_shared<MockTransformation>(1.0f);
 
-			assaultsCurve.AddKey(transformation, 10.0f); // mocked property 100% this key
-			noSleepCurve.AddKey(transformation, 6.0f); // mocked property 50% to this key
+			assaultsCurve->AddKey(transformation, 10.0f); // mocked property 100% this key
+			noSleepCurve->AddKey(transformation, 6.0f); // mocked property 50% to this key
 
 			group.AddTransformationCurve(assaultsCurve, "");
 			group.AddTransformationCurve(noSleepCurve, "");
@@ -80,13 +80,13 @@ namespace SharedFrameworkTest
 			std::shared_ptr<MockTransformation> defaultTransformation = std::make_shared<MockTransformation>(0.0f);
 
 			TransformationGroup group = TransformationGroup(TraitType::Morph, defaultTransformation);
-			TransformationCurve assaultsCurve = TransformationCurve(TraitType::Morph, "Assaults");
-			TransformationCurve noSleepCurve = TransformationCurve(TraitType::Morph, "Days Without Sleep");
+			std::shared_ptr<TransformationCurve> assaultsCurve = std::make_shared<TransformationCurve>(TraitType::Morph, "Assaults");
+			std::shared_ptr<TransformationCurve> noSleepCurve = std::make_shared<TransformationCurve>(TraitType::Morph, "Days Without Sleep");
 
 			std::shared_ptr<MockTransformation> transformation = std::make_shared<MockTransformation>(1.0f);
 
-			assaultsCurve.AddKey(transformation, 10.0f, 2.0f); // mocked property 100% this key and weight
-			noSleepCurve.AddKey(transformation, 6.0f, 10.0f); // mocked property 50% to this key and weight
+			assaultsCurve->AddKey(transformation, 10.0f, 2.0f); // mocked property 100% this key and weight
+			noSleepCurve->AddKey(transformation, 6.0f, 10.0f); // mocked property 50% to this key and weight
 
 			group.AddTransformationCurve(assaultsCurve, "");
 			group.AddTransformationCurve(noSleepCurve, "");
@@ -119,13 +119,13 @@ namespace SharedFrameworkTest
 			std::shared_ptr<MockTransformation> defaultTransformation = std::make_shared<MockTransformation>(0.0f);
 
 			TransformationGroup group = TransformationGroup(TraitType::Morph, defaultTransformation);
-			TransformationCurve assaultsCurve = TransformationCurve(TraitType::Morph, "Assaults");
-			TransformationCurve noSleepCurve = TransformationCurve(TraitType::None, "Days Without Sleep");
+			std::shared_ptr<TransformationCurve> assaultsCurve = std::make_shared<TransformationCurve>(TraitType::Morph, "Assaults");
+			std::shared_ptr<TransformationCurve> noSleepCurve = std::make_shared<TransformationCurve>(TraitType::None, "Days Without Sleep");
 
 			std::shared_ptr<MockTransformation> transformation = std::make_shared<MockTransformation>(1.0f);
 
-			assaultsCurve.AddKey(transformation, 10.0f); // mocked property 100% this key
-			noSleepCurve.AddKey(transformation, 6.0f); // mocked property 50% to this key
+			assaultsCurve->AddKey(transformation, 10.0f); // mocked property 100% this key
+			noSleepCurve->AddKey(transformation, 6.0f); // mocked property 50% to this key
 
 			group.AddTransformationCurve(assaultsCurve, "");
 			group.AddTransformationCurve(noSleepCurve, "");
@@ -144,13 +144,13 @@ namespace SharedFrameworkTest
 			std::shared_ptr<MockTransformation> defaultTransformation = std::make_shared<MockTransformation>(0.0f);
 
 			TransformationGroup group = TransformationGroup(TraitType::Morph, defaultTransformation);
-			TransformationCurve assaultsCurve = TransformationCurve(TraitType::Morph, "Assaults");
-			TransformationCurve mockActorAssaultsCurve = TransformationCurve(TraitType::Morph, "Assaults");
+			std::shared_ptr<TransformationCurve> assaultsCurve = std::make_shared<TransformationCurve>(TraitType::Morph, "Assaults");
+			std::shared_ptr<TransformationCurve> mockActorAssaultsCurve = std::make_shared<TransformationCurve>(TraitType::Morph, "Assaults");
 
 			std::shared_ptr<MockTransformation> transformation = std::make_shared<MockTransformation>(1.0f);
 
-			assaultsCurve.AddKey(transformation, 10.0f); // mocked property 100% this key
-			mockActorAssaultsCurve.AddKey(transformation, 100.0f); // mocked property 10% to this key
+			assaultsCurve->AddKey(transformation, 10.0f); // mocked property 100% this key
+			mockActorAssaultsCurve->AddKey(transformation, 100.0f); // mocked property 10% to this key
 
 			group.AddTransformationCurve(assaultsCurve, "");
 			group.AddTransformationCurve(mockActorAssaultsCurve, "MockActor");
@@ -169,11 +169,11 @@ namespace SharedFrameworkTest
 			std::shared_ptr<MockTransformation> defaultTransformation = std::make_shared<MockTransformation>(0.0f);
 
 			TransformationGroup group = TransformationGroup(TraitType::Morph, defaultTransformation);
-			TransformationCurve assaultsCurve = TransformationCurve(TraitType::Morph, "Assaults");
+			std::shared_ptr<TransformationCurve> assaultsCurve = std::make_shared<TransformationCurve>(TraitType::Morph, "Assaults");
 
 			std::shared_ptr<MockTransformation> transformation = std::make_shared<MockTransformation>(1.0f);
 
-			assaultsCurve.AddKey(transformation, 10.0f); // mocked property 100% this key
+			assaultsCurve->AddKey(transformation, 10.0f); // mocked property 100% this key
 			group.AddTransformationCurve(assaultsCurve, "");
 
 			std::shared_ptr<ITransformation> resultTransformation = group.Apply(properties);

@@ -55,6 +55,12 @@ public:
     /// <summary>Return a read-only map of the keys in this curve</summary>
     const std::map<float, TransformationCurve::Key>& GetKeys() const;
 
+    /// <summary>Return the tracked property this curve is driven by</summary>
+    std::string GetControllingProperty();
+
+    /// <summary>Return the type of transformation this curve manages</summary>
+    TraitType GetType();
+
 private:
     /// <summary>The type of transformation this curve manages</summary>
     TraitType m_curveTransformationType = TraitType::None;

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -32,6 +32,7 @@
     <ClCompile Include="src\state\ActorTrackedProperties.cpp" />
     <ClCompile Include="src\TraitTransformationManager.cpp" />
     <ClCompile Include="src\transformations\TransformationCurve.cpp" />
+    <ClCompile Include="src\transformations\TransformationGroup.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

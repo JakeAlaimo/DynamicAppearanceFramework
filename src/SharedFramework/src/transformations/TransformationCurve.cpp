@@ -82,6 +82,16 @@ const std::map<float, TransformationCurve::Key>& TransformationCurve::GetKeys() 
     return m_sortedKeys;
 }
 
+std::string TransformationCurve::GetControllingProperty()
+{
+    return m_controllingProperty;
+}
+
+TraitType TransformationCurve::GetType()
+{
+    return m_curveTransformationType;
+}
+
 std::pair<TransformationCurve::Key*, TransformationCurve::Key*> TransformationCurve::GetBlendingKeysAt(float currentPropertyValue)
 {
     TransformationCurve::Key* lowKey = nullptr;
