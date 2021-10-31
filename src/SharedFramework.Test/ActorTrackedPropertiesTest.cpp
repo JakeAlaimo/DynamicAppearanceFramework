@@ -17,7 +17,7 @@ namespace SharedFrameworkTest
 			ActorTrackedProperties properties = ActorTrackedProperties(reader);
 
 			Assert::AreEqual((size_t)3, properties.GetAllTrackedProperties().size());
-			Assert::AreEqual((size_t)2, properties.SetTrackedPropertyValue("Assaults", 10.0f).size());
+			Assert::AreEqual((size_t)3, properties.SetTrackedPropertyValue("Assaults", 10.0f).size());
 			Assert::AreEqual(10.0f, properties.GetTrackedPropertyValue("Assaults"));
 		}
 
@@ -35,7 +35,7 @@ namespace SharedFrameworkTest
 			Assert::AreEqual(0.0f, properties.GetTrackedPropertyValue("Magicka Percent Remaining"));
 
 			Assert::AreEqual((size_t)3, properties.GetAllTrackedProperties().size());
-			Assert::AreEqual((size_t)2, properties.SetTrackedPropertyValue("Assaults", 10.0f).size());
+			Assert::AreEqual((size_t)3, properties.SetTrackedPropertyValue("Assaults", 10.0f).size());
 			Assert::AreEqual(10.0f, properties.GetTrackedPropertyValue("Assaults"));
 		}
 
