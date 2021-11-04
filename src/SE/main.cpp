@@ -1,12 +1,12 @@
-#include "skse/PluginAPI.h"
-#include "skse/skse_version.h"
-#include "skse/SafeWrite.h"
-#include "skse/GameAPI.h"
+#include "skse64/PluginAPI.h"
+#include "skse64_common/skse_version.h"
+#include "skse64_common/SafeWrite.h"
+#include "skse64/GameAPI.h"
 
-IDebugLog	gLog("DynamicAppearanceFramework.log");
+IDebugLog	gLog("DynamicAppearanceFramework64.log");
 PluginHandle	g_pluginHandle = kPluginHandle_Invalid;
-SKSESerializationInterface* g_serialization = NULL;
-SKSEPapyrusInterface* g_papyrusInterface = NULL;
+SKSESerializationInterface* g_serialization = nullptr;
+SKSEPapyrusInterface* g_papyrusInterface = nullptr;
 
 /**** serialization ****/
 
@@ -31,7 +31,7 @@ extern "C"
 	{
 		// populate info structure
 		info->infoVersion = PluginInfo::kInfoVersion;
-		info->name = "DynamicAppearanceFramework";
+		info->name = "DynamicAppearanceFramework64";
 		info->version = 1;
 
 		// store plugin handle so we can identify ourselves later
@@ -41,7 +41,7 @@ extern "C"
 		{
 			return false;
 		}
-		else if (skse->runtimeVersion != RUNTIME_VERSION_1_9_32_0)
+		else if (skse->runtimeVersion != RUNTIME_VERSION_1_5_97)
 		{
 			return false;
 		}
