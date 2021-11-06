@@ -13,31 +13,55 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\transformations">
+      <UniqueIdentifier>{e171430f-e061-4cda-aa34-752caedf7ad8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\parse">
+      <UniqueIdentifier>{4c0cdaf3-e487-4f26-a3a0-f95c8085f434}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\state">
+      <UniqueIdentifier>{382907d0-1bc5-4f91-b8ce-8fb941b1b032}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\state">
+      <UniqueIdentifier>{15bbf093-41a7-43d7-9ab7-8fe07d673beb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\parse">
+      <UniqueIdentifier>{8e497085-9b46-49db-9b65-a6355123ce5d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\transformations">
+      <UniqueIdentifier>{766771f4-cca9-4697-93c3-77de49eb7760}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\TraitTransformationManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\state\IActorTrackedProperties.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\state\ActorTrackedProperties.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\parse\ITraitTransformationReader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\TraitType.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\state\ActorTrackedProperties.h">
+      <Filter>Header Files\state</Filter>
+    </ClInclude>
+    <ClInclude Include="src\state\IActorTrackedProperties.h">
+      <Filter>Header Files\state</Filter>
+    </ClInclude>
+    <ClInclude Include="src\state\DefaultTransformations.h">
+      <Filter>Header Files\state</Filter>
+    </ClInclude>
+    <ClInclude Include="src\state\ActorState.h">
+      <Filter>Header Files\state</Filter>
+    </ClInclude>
+    <ClInclude Include="src\parse\ITraitTransformationReader.h">
+      <Filter>Header Files\parse</Filter>
+    </ClInclude>
     <ClInclude Include="src\transformations\ITransformation.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\transformations</Filter>
     </ClInclude>
     <ClInclude Include="src\transformations\TransformationCurve.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\transformations</Filter>
     </ClInclude>
     <ClInclude Include="src\transformations\TransformationGroup.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\transformations</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -45,13 +69,16 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\state\ActorTrackedProperties.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\state</Filter>
     </ClCompile>
-    <ClCompile Include="src\transformations\TransformationCurve.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\state\DefaultTransformations.cpp">
+      <Filter>Source Files\state</Filter>
     </ClCompile>
     <ClCompile Include="src\transformations\TransformationGroup.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\transformations</Filter>
+    </ClCompile>
+    <ClCompile Include="src\transformations\TransformationCurve.cpp">
+      <Filter>Source Files\transformations</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
