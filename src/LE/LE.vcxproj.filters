@@ -18,13 +18,21 @@
     <None Include="exports.def" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="exports.def" />
     <ClInclude Include="src\ActorStateRegistry.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PapyrusSandbox.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="src\ActorStateRegistry.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PapyrusSandbox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

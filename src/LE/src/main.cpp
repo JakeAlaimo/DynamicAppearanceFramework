@@ -3,6 +3,8 @@
 #include "skse/SafeWrite.h"
 #include "skse/GameAPI.h"
 
+#include "PapyrusSandbox.h"
+
 IDebugLog	gLog("DynamicAppearanceFramework.log");
 PluginHandle	g_pluginHandle = kPluginHandle_Invalid;
 SKSESerializationInterface* g_serialization = NULL;
@@ -74,8 +76,16 @@ extern "C"
 		g_serialization->SetSaveCallback(g_pluginHandle, Serialization_Save);
 		g_serialization->SetLoadCallback(g_pluginHandle, Serialization_Load);
 
-		//register the papyrus functions that allow scripts to access the new event
+		// prepare the papyrus function environment - doesn't need to happen here
+		PapyrusSandbox::SandboxDependencies dependencies;
+		dependencies.stateRegistry = nullptr;
+		dependencies.transformationManager = nullptr;
+
+		PapyrusSandbox::ConfigureSandbox(dependencies); // note that null dependencies will crash the dll
+
+		// register the papyrus functions that allow scripts to access the new event
 		g_papyrusInterface = (SKSEPapyrusInterface*)skse->QueryInterface(kInterface_Papyrus);
+		g_papyrusInterface->Register(PapyrusSandbox::RegisterFunctions);
 
 		return true;
 	}
