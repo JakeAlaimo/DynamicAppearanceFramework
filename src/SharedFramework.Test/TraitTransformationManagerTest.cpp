@@ -16,36 +16,19 @@ namespace SharedFrameworkTest
 	public:
 		TEST_METHOD(Constructor_Succeeds)
 		{
-			std::shared_ptr<MockActorTrackedProperties> properties = std::make_shared<MockActorTrackedProperties>();
 			MockTraitTransformationReader reader = MockTraitTransformationReader();
-
-			TraitTransformationManager manager = TraitTransformationManager(properties, reader);
-		}
-
-		TEST_METHOD(ConstructorMissingActorProps_Fails)
-		{
-			MockTraitTransformationReader reader = MockTraitTransformationReader();
-
-			bool succeeded;
-			try
-			{
-				TraitTransformationManager manager = TraitTransformationManager(nullptr, reader);
-				succeeded = true;
-			}
-			catch (...)
-			{
-				succeeded = false;
-			}
-			Assert::IsFalse(succeeded);
+			TraitTransformationManager manager = TraitTransformationManager(reader);
 		}
 
 		TEST_METHOD(ApplyAllTransformations_Succeeds)
 		{
 			std::shared_ptr<MockActorTrackedProperties> properties = std::make_shared<MockActorTrackedProperties>();
 			MockTraitTransformationReader reader = MockTraitTransformationReader();
-			TraitTransformationManager manager = TraitTransformationManager(properties, reader);
+			ActorState state = ActorState(properties, reader.defaultTransformations);
 
-			std::vector<std::shared_ptr<ITransformation>> finalTransformations = manager.ApplyAllTransformationGroups();
+			TraitTransformationManager manager = TraitTransformationManager(reader);
+
+			std::vector<std::shared_ptr<ITransformation>> finalTransformations = manager.ApplyAllTransformationGroups(state);
 
 			Assert::AreEqual((size_t) 2, finalTransformations.size());
 			Assert::AreEqual(0.625f, *(float*)(finalTransformations[0]->GetTransformationData()));
@@ -56,11 +39,12 @@ namespace SharedFrameworkTest
 		{
 			std::shared_ptr<MockActorTrackedProperties> properties = std::make_shared<MockActorTrackedProperties>();
 			MockTraitTransformationReader reader = MockTraitTransformationReader();
+			ActorState state = ActorState(properties, reader.defaultTransformations);
 
 			reader.ClearGroups(); // just for testing
-			TraitTransformationManager manager = TraitTransformationManager(properties, reader);
+			TraitTransformationManager manager = TraitTransformationManager(reader);
 
-			std::vector<std::shared_ptr<ITransformation>> finalTransformations = manager.ApplyAllTransformationGroups();
+			std::vector<std::shared_ptr<ITransformation>> finalTransformations = manager.ApplyAllTransformationGroups(state);
 			Assert::AreEqual((size_t)0, finalTransformations.size());
 		}
 
@@ -68,9 +52,11 @@ namespace SharedFrameworkTest
 		{
 			std::shared_ptr<MockActorTrackedProperties> properties = std::make_shared<MockActorTrackedProperties>();
 			MockTraitTransformationReader reader = MockTraitTransformationReader();
-			TraitTransformationManager manager = TraitTransformationManager(properties, reader);
+			ActorState state = ActorState(properties, reader.defaultTransformations);
 
-			std::vector<std::shared_ptr<ITransformation>> finalTransformations = manager.RevertAllTransformationGroups();
+			TraitTransformationManager manager = TraitTransformationManager(reader);
+
+			std::vector<std::shared_ptr<ITransformation>> finalTransformations = manager.RevertAllTransformationGroups(state);
 
 			Assert::AreEqual((size_t)2, finalTransformations.size());
 			Assert::AreEqual(0.5f, *(float*)(finalTransformations[0]->GetTransformationData()));
@@ -81,11 +67,12 @@ namespace SharedFrameworkTest
 		{
 			std::shared_ptr<MockActorTrackedProperties> properties = std::make_shared<MockActorTrackedProperties>();
 			MockTraitTransformationReader reader = MockTraitTransformationReader();
+			ActorState state = ActorState(properties, reader.defaultTransformations);
 
 			reader.ClearGroups(); // just for testing
-			TraitTransformationManager manager = TraitTransformationManager(properties, reader);
+			TraitTransformationManager manager = TraitTransformationManager(reader);
 
-			std::vector<std::shared_ptr<ITransformation>> finalTransformations = manager.RevertAllTransformationGroups();
+			std::vector<std::shared_ptr<ITransformation>> finalTransformations = manager.RevertAllTransformationGroups(state);
 			Assert::AreEqual((size_t)0, finalTransformations.size());
 		}
 
@@ -93,9 +80,11 @@ namespace SharedFrameworkTest
 		{
 			std::shared_ptr<MockActorTrackedProperties> properties = std::make_shared<MockActorTrackedProperties>();
 			MockTraitTransformationReader reader = MockTraitTransformationReader();
-			TraitTransformationManager manager = TraitTransformationManager(properties, reader);
+			ActorState state = ActorState(properties, reader.defaultTransformations);
 
-			std::shared_ptr<ITransformation> finalTransformation = manager.ApplyTransformationGroup("Jaw Width");
+			TraitTransformationManager manager = TraitTransformationManager(reader);
+
+			std::shared_ptr<ITransformation> finalTransformation = manager.ApplyTransformationGroup("Jaw Width", state);
 			Assert::AreEqual(0.625f, *(float*)(finalTransformation->GetTransformationData()));
 		}
 
@@ -103,9 +92,11 @@ namespace SharedFrameworkTest
 		{
 			std::shared_ptr<MockActorTrackedProperties> properties = std::make_shared<MockActorTrackedProperties>();
 			MockTraitTransformationReader reader = MockTraitTransformationReader();
-			TraitTransformationManager manager = TraitTransformationManager(properties, reader);
+			ActorState state = ActorState(properties, reader.defaultTransformations);
 
-			std::shared_ptr<ITransformation> finalTransformation = manager.ApplyTransformationGroup("Missing Group");
+			TraitTransformationManager manager = TraitTransformationManager(reader);
+
+			std::shared_ptr<ITransformation> finalTransformation = manager.ApplyTransformationGroup("Missing Group", state);
 			Assert::IsNull(finalTransformation.get());
 		}
 
@@ -113,9 +104,11 @@ namespace SharedFrameworkTest
 		{
 			std::shared_ptr<MockActorTrackedProperties> properties = std::make_shared<MockActorTrackedProperties>();
 			MockTraitTransformationReader reader = MockTraitTransformationReader();
-			TraitTransformationManager manager = TraitTransformationManager(properties, reader);
+			ActorState state = ActorState(properties, reader.defaultTransformations);
 
-			std::shared_ptr<ITransformation> finalTransformation = manager.RevertTransformationGroup("Jaw Width");
+			TraitTransformationManager manager = TraitTransformationManager(reader);
+
+			std::shared_ptr<ITransformation> finalTransformation = manager.RevertTransformationGroup("Jaw Width", state);
 			Assert::AreEqual(0.5f, *(float*)(finalTransformation->GetTransformationData()));
 		}
 
@@ -123,72 +116,12 @@ namespace SharedFrameworkTest
 		{
 			std::shared_ptr<MockActorTrackedProperties> properties = std::make_shared<MockActorTrackedProperties>();
 			MockTraitTransformationReader reader = MockTraitTransformationReader();
-			TraitTransformationManager manager = TraitTransformationManager(properties, reader);
+			ActorState state = ActorState(properties, reader.defaultTransformations);
 
-			std::shared_ptr<ITransformation> finalTransformation = manager.RevertTransformationGroup("Missing Group");
+			TraitTransformationManager manager = TraitTransformationManager(reader);
+
+			std::shared_ptr<ITransformation> finalTransformation = manager.RevertTransformationGroup("Missing Group", state);
 			Assert::IsNull(finalTransformation.get());
-		}
-
-		TEST_METHOD(SetDefaultToNull_Fails)
-		{
-			std::shared_ptr<MockActorTrackedProperties> properties = std::make_shared<MockActorTrackedProperties>();
-			MockTraitTransformationReader reader = MockTraitTransformationReader();
-			TraitTransformationManager manager = TraitTransformationManager(properties, reader);
-
-			bool succeeded;
-			try
-			{
-				manager.SetDefaultTransformationForTrait("Jaw Width", nullptr);
-				succeeded = true;
-			}
-			catch (...)
-			{
-				succeeded = false;
-			}
-			Assert::IsFalse(succeeded);
-		}
-
-		TEST_METHOD(SetDefaultToMissingGroup_Fails)
-		{
-			std::shared_ptr<MockActorTrackedProperties> properties = std::make_shared<MockActorTrackedProperties>();
-			MockTraitTransformationReader reader = MockTraitTransformationReader();
-			TraitTransformationManager manager = TraitTransformationManager(properties, reader);
-
-			std::shared_ptr<MockTransformation> newDefault = std::make_shared<MockTransformation>(0);
-
-			bool succeeded;
-			try
-			{
-				manager.SetDefaultTransformationForTrait("Missing Group", newDefault);
-				succeeded = true;
-			}
-			catch (...)
-			{
-				succeeded = false;
-			}
-			Assert::IsFalse(succeeded);
-		}
-
-		TEST_METHOD(SetDefaultForTraitWrongType_Fails)
-		{
-			std::shared_ptr<MockActorTrackedProperties> properties = std::make_shared<MockActorTrackedProperties>();
-			MockTraitTransformationReader reader = MockTraitTransformationReader();
-			TraitTransformationManager manager = TraitTransformationManager(properties, reader);
-
-			std::shared_ptr<MockTransformation> newDefault = std::make_shared<MockTransformation>(0);
-			newDefault->ForceTraitType(TraitType::None); // just for testing purposes - not intended functionality
-
-			bool succeeded;
-			try
-			{
-				manager.SetDefaultTransformationForTrait("Jaw Width", newDefault);
-				succeeded = true;
-			}
-			catch (...)
-			{
-				succeeded = false;
-			}
-			Assert::IsFalse(succeeded);
 		}
 	};
 }

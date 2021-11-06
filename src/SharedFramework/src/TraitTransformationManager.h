@@ -1,49 +1,42 @@
 #pragma once
 #include <string>
 #include <vector>
-#include "state/IActorTrackedProperties.h"
+#include "state/ActorState.h"
 #include "parse/ITraitTransformationReader.h"
-#include "transformations/ITransformation.h"
 
 /// <summary>
-/// Governs the dynamic manipulation of supported visual traits for a single character
+/// Governs the dynamic manipulation of supported visual traits
 /// </summary>
 class TraitTransformationManager
 {
 public:
-
-    /// <summary>Creates a TraitTransformationManager instance for a particular character</summary>
-    /// <param name="actorTrackedProperties">A particular character's dynamic appearance state representation</param>
+    /// <summary>Creates a TraitTransformationManager instance for the player's particular configuration</summary>
     /// <param name="transformationReader">A parser that has processed all of the trait transformation specifications this manager will use</param> 
-    TraitTransformationManager(std::shared_ptr<IActorTrackedProperties> actorTrackedProperties, ITraitTransformationReader &transformationReader);
+    TraitTransformationManager(ITraitTransformationReader &transformationReader);
 
-    /// <summary>Process and blends the results of all transformation groups, returning a list of the results</summary>
-    /// <returns>A list of independent trait transformations that can be applied to present the final dynamic trait state</returns>
-    std::vector<std::shared_ptr<ITransformation>> ApplyAllTransformationGroups();
+    /// <summary>Processes and blends the results of all transformation groups on a particular actor, returning a list of the results</summary>
+    /// <param name="actorState">The target actor's full state representation within this system</param>
+    /// <returns>A list of independent trait transformations that can be applied to the target actor to present the final dynamic trait state</returns>
+    std::vector<std::shared_ptr<ITransformation>> ApplyAllTransformationGroups(ActorState &actorState);
 
-    /// <summary>Removes the trait transformations for all transformation groups, returning a list of the results</summary>
-    /// <returns>A list of the trait transformations that represent the actor's base, non-transformed state</returns>
-    std::vector<std::shared_ptr<ITransformation>> RevertAllTransformationGroups();
+    /// <summary>Removes the trait transformations for all transformation groups on a particular actor, returning a list of the results</summary>
+    /// <param name="actorState">The target actor's full state representation within this system</param>
+    /// <returns>A list of the trait transformations that represent the target actor's base, non-transformed state</returns>
+    std::vector<std::shared_ptr<ITransformation>> RevertAllTransformationGroups(ActorState& actorState);
 
-    /// <summary>Process and blends the results of a single transformation group, returning the final trait transformation</summary>
+    /// <summary>Process and blends the results of a single transformation group on a particular actor, returning the final trait transformation</summary>
     /// <params name="traitID">String identifier for a specific dynamic trait</params>
-    /// <returns>A trait transformation that can be applied to present the final dynamic state for that particular trait</returns>
-    std::shared_ptr<ITransformation> ApplyTransformationGroup(std::string traitID);
+    /// <param name="actorState">The target actor's full state representation within this system</param>
+    /// <returns>A trait transformation that can be applied to present the final dynamic state for that actor's particular trait</returns>
+    std::shared_ptr<ITransformation> ApplyTransformationGroup(std::string traitID, ActorState& actorState);
 
-    /// <summary>Removes the trait transformations for a specific transformation groups, returning the default trait transformation</summary>
+    /// <summary>Removes the trait transformations for a specific transformation group on a particular actor, returning the default trait transformation</summary>
     /// <params name="traitID">String identifier for a specific dynamic trait</params>
-    /// <returns>A trait transformation that can be applied to present the base, default state for that particular trait</returns>
-    std::shared_ptr<ITransformation> RevertTransformationGroup(std::string traitID);
-
-    /// <summary>Process and blends the results of a single transformation group, returning the final trait transformation</summary>
-    /// <params name="traitID">String identifier for a specific dynamic trait</params>
-    /// <params name="defaultTransformation">The new base, untransformed value for the trait</params>
-    void SetDefaultTransformationForTrait(std::string traitID, std::shared_ptr<ITransformation> defaultTransformation);
+    /// <param name="actorState">The target actor's full state representation within this system</param>
+    /// <returns>A trait transformation that can be applied to present the base, default state for that actor's particular trait</returns>
+    std::shared_ptr<ITransformation> RevertTransformationGroup(std::string traitID, ActorState& actorState);
 
 private:
-
-    /// <summary>This character's dynamic appearance state representation</summary>
-    std::shared_ptr<IActorTrackedProperties> m_actorTrackedProperties = nullptr;
 
     /// <summary>Mapping of trait IDs to the transformation group associated with them</summary>
     std::map<std::string, std::shared_ptr<TransformationGroup>> m_traitTransformations;

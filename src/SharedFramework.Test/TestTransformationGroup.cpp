@@ -15,38 +15,7 @@ namespace SharedFrameworkTest
 		TEST_METHOD(Constructor_Succeeds)
 		{
 			std::shared_ptr<MockTransformation> defaultTransformation = std::make_shared<MockTransformation>(0.0f);
-			TransformationGroup group = TransformationGroup(TraitType::Morph, defaultTransformation);
-		}
-
-		TEST_METHOD(ConstructorNoDefault_Fails)
-		{
-			bool succeeded;
-			try
-			{
-				TransformationGroup group = TransformationGroup(TraitType::Morph, nullptr);
-				succeeded = true;
-			}
-			catch (...)
-			{
-				succeeded = false;
-			}
-			Assert::IsFalse(succeeded);
-		}
-
-		TEST_METHOD(ConstructorDefaultWrongType_Fails)
-		{
-			bool succeeded;
-			try
-			{
-				std::shared_ptr<MockTransformation> defaultTransformation = std::make_shared<MockTransformation>(0.0f);
-				TransformationGroup group = TransformationGroup(TraitType::None, defaultTransformation);
-				succeeded = true;
-			}
-			catch (...)
-			{
-				succeeded = false;
-			}
-			Assert::IsFalse(succeeded);
+			TransformationGroup group = TransformationGroup(TraitType::Morph);
 		}
 
 		TEST_METHOD(ApplyStandardValues_Succeeds)
@@ -54,7 +23,7 @@ namespace SharedFrameworkTest
 			MockActorTrackedProperties properties = MockActorTrackedProperties();
 			std::shared_ptr<MockTransformation> defaultTransformation = std::make_shared<MockTransformation>(0.0f);
 
-			TransformationGroup group = TransformationGroup(TraitType::Morph, defaultTransformation);
+			TransformationGroup group = TransformationGroup(TraitType::Morph);
 			std::shared_ptr<TransformationCurve> assaultsCurve = std::make_shared<TransformationCurve>(TraitType::Morph, "Assaults");
 			std::shared_ptr<TransformationCurve> noSleepCurve = std::make_shared<TransformationCurve>(TraitType::Morph, "Days Without Sleep");
 
@@ -66,7 +35,7 @@ namespace SharedFrameworkTest
 			group.AddTransformationCurve(assaultsCurve, "");
 			group.AddTransformationCurve(noSleepCurve, "");
 
-			std::shared_ptr<ITransformation> resultTransformation = group.Apply(properties);
+			std::shared_ptr<ITransformation> resultTransformation = group.Apply(properties, defaultTransformation);
 
 			float resultValue = *(float*)resultTransformation->GetTransformationData();
 
@@ -79,7 +48,7 @@ namespace SharedFrameworkTest
 			MockActorTrackedProperties properties = MockActorTrackedProperties();
 			std::shared_ptr<MockTransformation> defaultTransformation = std::make_shared<MockTransformation>(0.0f);
 
-			TransformationGroup group = TransformationGroup(TraitType::Morph, defaultTransformation);
+						TransformationGroup group = TransformationGroup(TraitType::Morph);
 			std::shared_ptr<TransformationCurve> assaultsCurve = std::make_shared<TransformationCurve>(TraitType::Morph, "Assaults");
 			std::shared_ptr<TransformationCurve> noSleepCurve = std::make_shared<TransformationCurve>(TraitType::Morph, "Days Without Sleep");
 
@@ -91,7 +60,7 @@ namespace SharedFrameworkTest
 			group.AddTransformationCurve(assaultsCurve, "");
 			group.AddTransformationCurve(noSleepCurve, "");
 
-			std::shared_ptr<ITransformation> resultTransformation = group.Apply(properties);
+			std::shared_ptr<ITransformation> resultTransformation = group.Apply(properties, defaultTransformation);
 
 			float resultValue = *(float*)resultTransformation->GetTransformationData();
 
@@ -104,8 +73,8 @@ namespace SharedFrameworkTest
 			MockActorTrackedProperties properties = MockActorTrackedProperties();
 			std::shared_ptr<MockTransformation> defaultTransformation = std::make_shared<MockTransformation>(10.0f);
 
-			TransformationGroup group = TransformationGroup(TraitType::Morph, defaultTransformation);
-			std::shared_ptr<ITransformation> resultTransformation = group.Apply(properties);
+			TransformationGroup group = TransformationGroup(TraitType::Morph);
+			std::shared_ptr<ITransformation> resultTransformation = group.Apply(properties, defaultTransformation);
 
 			float resultValue = *(float*)resultTransformation->GetTransformationData();
 
@@ -118,7 +87,7 @@ namespace SharedFrameworkTest
 			MockActorTrackedProperties properties = MockActorTrackedProperties();
 			std::shared_ptr<MockTransformation> defaultTransformation = std::make_shared<MockTransformation>(0.0f);
 
-			TransformationGroup group = TransformationGroup(TraitType::Morph, defaultTransformation);
+			TransformationGroup group = TransformationGroup(TraitType::Morph);
 			std::shared_ptr<TransformationCurve> assaultsCurve = std::make_shared<TransformationCurve>(TraitType::Morph, "Assaults");
 			std::shared_ptr<TransformationCurve> noSleepCurve = std::make_shared<TransformationCurve>(TraitType::None, "Days Without Sleep");
 
@@ -130,7 +99,7 @@ namespace SharedFrameworkTest
 			group.AddTransformationCurve(assaultsCurve, "");
 			group.AddTransformationCurve(noSleepCurve, "");
 
-			std::shared_ptr<ITransformation> resultTransformation = group.Apply(properties);
+			std::shared_ptr<ITransformation> resultTransformation = group.Apply(properties, defaultTransformation);
 
 			float resultValue = *(float*)resultTransformation->GetTransformationData();
 
@@ -143,7 +112,7 @@ namespace SharedFrameworkTest
 			MockActorTrackedProperties properties = MockActorTrackedProperties();
 			std::shared_ptr<MockTransformation> defaultTransformation = std::make_shared<MockTransformation>(0.0f);
 
-			TransformationGroup group = TransformationGroup(TraitType::Morph, defaultTransformation);
+			TransformationGroup group = TransformationGroup(TraitType::Morph);
 			std::shared_ptr<TransformationCurve> assaultsCurve = std::make_shared<TransformationCurve>(TraitType::Morph, "Assaults");
 			std::shared_ptr<TransformationCurve> mockActorAssaultsCurve = std::make_shared<TransformationCurve>(TraitType::Morph, "Assaults");
 
@@ -155,7 +124,7 @@ namespace SharedFrameworkTest
 			group.AddTransformationCurve(assaultsCurve, "");
 			group.AddTransformationCurve(mockActorAssaultsCurve, "MockActor");
 
-			std::shared_ptr<ITransformation> resultTransformation = group.Apply(properties);
+			std::shared_ptr<ITransformation> resultTransformation = group.Apply(properties, defaultTransformation);
 
 			float resultValue = *(float*)resultTransformation->GetTransformationData();
 
@@ -168,7 +137,7 @@ namespace SharedFrameworkTest
 			MockActorTrackedProperties properties = MockActorTrackedProperties();
 			std::shared_ptr<MockTransformation> defaultTransformation = std::make_shared<MockTransformation>(0.0f);
 
-			TransformationGroup group = TransformationGroup(TraitType::Morph, defaultTransformation);
+			TransformationGroup group = TransformationGroup(TraitType::Morph);
 			std::shared_ptr<TransformationCurve> assaultsCurve = std::make_shared<TransformationCurve>(TraitType::Morph, "Assaults");
 
 			std::shared_ptr<MockTransformation> transformation = std::make_shared<MockTransformation>(1.0f);
@@ -176,42 +145,28 @@ namespace SharedFrameworkTest
 			assaultsCurve->AddKey(transformation, 10.0f); // mocked property 100% this key
 			group.AddTransformationCurve(assaultsCurve, "");
 
-			std::shared_ptr<ITransformation> resultTransformation = group.Apply(properties);
+			std::shared_ptr<ITransformation> resultTransformation = group.Apply(properties, defaultTransformation);
 			float firstNameResultValue = *(float*)resultTransformation->GetTransformationData();
 
 			properties.SetActorName("Different Name");
 
-			resultTransformation = group.Apply(properties);
+			resultTransformation = group.Apply(properties, defaultTransformation);
 			float secondNameResultValue = *(float*)resultTransformation->GetTransformationData();
 
 			Assert::AreEqual(firstNameResultValue, secondNameResultValue);
 		}
 
-		TEST_METHOD(RevertReturnsDefault_Succeeds)
+		TEST_METHOD(ApplyDefaultNull_Fails)
 		{
-			std::shared_ptr<MockTransformation> defaultTransformation = std::make_shared<MockTransformation>(10.0f);
-			std::shared_ptr<MockTransformation> defaultTransformation2 = std::make_shared<MockTransformation>(15.0f);
+			MockActorTrackedProperties properties = MockActorTrackedProperties();
+			std::shared_ptr<MockTransformation> defaultTransformation = nullptr;
 
-			TransformationGroup group = TransformationGroup(TraitType::Morph, defaultTransformation);
-
-			float resultValue = *(float*)group.Revert()->GetTransformationData();
-			Assert::AreEqual(10.0f, resultValue);
-
-			group.SetDefaultTransformation(defaultTransformation2);
-
-			resultValue = *(float*)group.Revert()->GetTransformationData();
-			Assert::AreEqual(15.0f, resultValue);
-		}
-
-		TEST_METHOD(SetDefaultToNull_Fails)
-		{
-			std::shared_ptr<MockTransformation> defaultTransformation = std::make_shared<MockTransformation>(0.0f);
-			TransformationGroup group = TransformationGroup(TraitType::Morph, defaultTransformation);
+			TransformationGroup group = TransformationGroup(TraitType::Morph);
 
 			bool succeeded;
 			try
 			{
-				group.SetDefaultTransformation(nullptr);
+				std::shared_ptr<ITransformation> resultTransformation = group.Apply(properties, defaultTransformation);
 				succeeded = true;
 			}
 			catch (...)
@@ -221,18 +176,18 @@ namespace SharedFrameworkTest
 			Assert::IsFalse(succeeded);
 		}
 
-		TEST_METHOD(SetDefaultToWrongType_Fails)
+		TEST_METHOD(ApplyDefaultWrongType_Fails)
 		{
+			MockActorTrackedProperties properties = MockActorTrackedProperties();
 			std::shared_ptr<MockTransformation> defaultTransformation = std::make_shared<MockTransformation>(0.0f);
-			TransformationGroup group = TransformationGroup(TraitType::Morph, defaultTransformation);
+			defaultTransformation->ForceTraitType(TraitType::None); //purely a testing utility, transformations will have a static trait type
 
-			std::shared_ptr<MockTransformation> newDefaultTransformation = std::make_shared<MockTransformation>(0.0f);
-			newDefaultTransformation->ForceTraitType(TraitType::None); //purely a testing utility, transformations will have a static trait type
+			TransformationGroup group = TransformationGroup(TraitType::Morph);
 
 			bool succeeded;
 			try
 			{
-				group.SetDefaultTransformation(newDefaultTransformation);
+				std::shared_ptr<ITransformation> resultTransformation = group.Apply(properties, defaultTransformation);
 				succeeded = true;
 			}
 			catch (...)

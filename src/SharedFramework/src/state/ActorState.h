@@ -7,6 +7,12 @@
 /// </summary>
 struct ActorState 
 {
+    ActorState(std::shared_ptr<IActorTrackedProperties> properties, std::shared_ptr<DefaultTransformations> defaults)
+    {
+        trackedProperties = properties;
+        defaultTransformations = defaults;
+    }
+
     std::shared_ptr<IActorTrackedProperties> trackedProperties;
     std::shared_ptr<DefaultTransformations> defaultTransformations;
 };

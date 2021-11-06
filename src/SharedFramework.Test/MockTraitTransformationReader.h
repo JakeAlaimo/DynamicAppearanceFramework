@@ -1,11 +1,13 @@
 #pragma once
 #include "../SharedFramework/src/parse/ITraitTransformationReader.h"
+#include "../SharedFramework/src/state/DefaultTransformations.h"
 #include "MockTransformation.h"
-
 
 class MockTraitTransformationReader : public ITraitTransformationReader
 {
 public:
+
+    std::shared_ptr<DefaultTransformations> defaultTransformations;
 
     MockTraitTransformationReader()
     {
@@ -14,24 +16,28 @@ public:
         m_traitsByProperty["Assaults"].emplace_back("Hunched Back");
         m_traitsByProperty["Assaults"].emplace_back("Jaw Width");
 
+        defaultTransformations = std::make_shared<DefaultTransformations>();
 
-        std::shared_ptr<MockTransformation> defaultJawWidth = std::make_shared<MockTransformation>(0.5f);
-        std::shared_ptr<MockTransformation> wideJawWidth = std::make_shared<MockTransformation>(1.0f);
-        std::shared_ptr<MockTransformation> narrowJawWidth = std::make_shared<MockTransformation>(0.0f);
+        std::shared_ptr<MockTransformation> defaultTransformation = std::make_shared<MockTransformation>(0.5f);
+        std::shared_ptr<MockTransformation> bigTransformation = std::make_shared<MockTransformation>(1.0f);
+        std::shared_ptr<MockTransformation> smallTransformation = std::make_shared<MockTransformation>(0.0f);
 
-        std::shared_ptr<TransformationGroup> jawWidthGroup = std::make_shared<TransformationGroup>(TraitType::Morph, defaultJawWidth);
+        std::shared_ptr<TransformationGroup> jawWidthGroup = std::make_shared<TransformationGroup>(TraitType::Morph);
         m_groupsByTrait["Jaw Width"] = jawWidthGroup;
+        defaultTransformations->SetDefaultOfTrait("Jaw Width", defaultTransformation);
 
-        std::shared_ptr<TransformationGroup> eyeBagGroup = std::make_shared<TransformationGroup>(TraitType::Morph, defaultJawWidth);
+        std::shared_ptr<TransformationGroup> eyeBagGroup = std::make_shared<TransformationGroup>(TraitType::Morph);
         m_groupsByTrait["Eye Bags"] = eyeBagGroup;
+        defaultTransformations->SetDefaultOfTrait("Eye Bags", defaultTransformation);
+
 
         std::shared_ptr<TransformationCurve> assaultJawCurve = std::make_shared<TransformationCurve>(TraitType::Morph, "Assaults");
-        assaultJawCurve->AddKey(wideJawWidth, 10.0f);
+        assaultJawCurve->AddKey(bigTransformation, 10.0f);
         jawWidthGroup->AddTransformationCurve(assaultJawCurve, "");
         eyeBagGroup->AddTransformationCurve(assaultJawCurve, "");
 
         std::shared_ptr<TransformationCurve> noSleepCurve = std::make_shared<TransformationCurve>(TraitType::Morph, "Days Without Sleep");
-        noSleepCurve->AddKey(narrowJawWidth, 6.0f);
+        noSleepCurve->AddKey(smallTransformation, 6.0f);
         jawWidthGroup->AddTransformationCurve(noSleepCurve, "");
         eyeBagGroup->AddTransformationCurve(noSleepCurve, "");
 
