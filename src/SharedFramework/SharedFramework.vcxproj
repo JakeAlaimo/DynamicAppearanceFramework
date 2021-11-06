@@ -20,7 +20,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\parse\ITraitTransformationReader.h" />
+    <ClInclude Include="src\state\ActorState.h" />
     <ClInclude Include="src\state\ActorTrackedProperties.h" />
+    <ClInclude Include="src\state\DefaultTransformations.h" />
     <ClInclude Include="src\state\IActorTrackedProperties.h" />
     <ClInclude Include="src\TraitType.h" />
     <ClInclude Include="src\TraitTransformationManager.h" />
@@ -30,6 +32,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\state\ActorTrackedProperties.cpp" />
+    <ClCompile Include="src\state\DefaultTransformations.cpp" />
     <ClCompile Include="src\TraitTransformationManager.cpp" />
     <ClCompile Include="src\transformations\TransformationCurve.cpp" />
     <ClCompile Include="src\transformations\TransformationGroup.cpp" />
