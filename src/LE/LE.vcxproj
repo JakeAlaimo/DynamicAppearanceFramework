@@ -73,7 +73,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <LibraryPath>$(SKSEDir)../common/Debug;$(SKSEDir)/Debug;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86)</LibraryPath>
-    <IncludePath>$(SKSEDir)..;$(SKSEDir);$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+    <IncludePath>../SharedFramework/src;$(SKSEDir)..;$(SKSEDir);$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
     <IntDir>obj\$(Configuration)\</IntDir>
     <TargetName>DynamicAppearanceFramework</TargetName>
     <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
@@ -81,7 +81,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <LibraryPath>$(SKSEDir)../common/Release;$(SKSEDir)/Release;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86)</LibraryPath>
-    <IncludePath>$(SKSEDir)..;$(SKSEDir);$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>../SharedFramework/src;$(SKSEDir)..;$(SKSEDir);$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <IntDir>obj\$(Configuration)\</IntDir>
     <TargetName>DynamicAppearanceFramework</TargetName>
     <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
@@ -177,9 +177,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <None Include="exports.def" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="exports.def" />
+    <ClInclude Include="src\ActorStateRegistry.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\ActorStateRegistry.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
