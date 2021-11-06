@@ -51,9 +51,6 @@
     <ClInclude Include="src\state\ActorState.h">
       <Filter>Header Files\state</Filter>
     </ClInclude>
-    <ClInclude Include="src\parse\ITraitTransformationReader.h">
-      <Filter>Header Files\parse</Filter>
-    </ClInclude>
     <ClInclude Include="src\transformations\ITransformation.h">
       <Filter>Header Files\transformations</Filter>
     </ClInclude>
@@ -62,6 +59,9 @@
     </ClInclude>
     <ClInclude Include="src\transformations\TransformationGroup.h">
       <Filter>Header Files\transformations</Filter>
+    </ClInclude>
+    <ClInclude Include="src\parse\IConfigurationParser.h">
+      <Filter>Header Files\parse</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\parse\ITraitTransformationReader.h" />
+    <ClInclude Include="src\parse\IConfigurationParser.h" />
     <ClInclude Include="src\state\ActorState.h" />
     <ClInclude Include="src\state\ActorTrackedProperties.h" />
     <ClInclude Include="src\state\DefaultTransformations.h" />

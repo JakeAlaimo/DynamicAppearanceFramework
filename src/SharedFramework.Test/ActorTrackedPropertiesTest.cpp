@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "CppUnitTest.h"
 #include "../SharedFramework/src/state/ActorTrackedProperties.h"
-#include "MockTraitTransformationReader.h"
+#include "MockConfigurationParser.h"
 
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -13,7 +13,7 @@ namespace SharedFrameworkTest
 	public:
 		TEST_METHOD(ConstructorWithoutStartingValues_Succeeds)
 		{
-			MockTraitTransformationReader reader = MockTraitTransformationReader();
+			MockConfigurationParser reader = MockConfigurationParser();
 			ActorTrackedProperties properties = ActorTrackedProperties(reader);
 
 			Assert::AreEqual((size_t)3, properties.GetAllTrackedProperties().size());
@@ -27,7 +27,7 @@ namespace SharedFrameworkTest
 			cachedTrackedProperties["Assaults"] = 50.0f;
 			cachedTrackedProperties["Days Without Sleep"] = 3.0f;
 
-			MockTraitTransformationReader reader = MockTraitTransformationReader();
+			MockConfigurationParser reader = MockConfigurationParser();
 			ActorTrackedProperties properties = ActorTrackedProperties(reader, cachedTrackedProperties);
 
 			Assert::AreEqual(50.0f, properties.GetTrackedPropertyValue("Assaults"));
@@ -41,7 +41,7 @@ namespace SharedFrameworkTest
 
 		TEST_METHOD(GetSetActorName_Succeeds)
 		{
-			MockTraitTransformationReader reader = MockTraitTransformationReader();
+			MockConfigurationParser reader = MockConfigurationParser();
 			ActorTrackedProperties properties = ActorTrackedProperties(reader);
 			properties.SetActorName("Actor");
 			Assert::AreEqual((std::string)"Actor", properties.GetActorName());
@@ -49,7 +49,7 @@ namespace SharedFrameworkTest
 
 		TEST_METHOD(GetActorNameUnspecified_Succeeds)
 		{
-			MockTraitTransformationReader reader = MockTraitTransformationReader();
+			MockConfigurationParser reader = MockConfigurationParser();
 			ActorTrackedProperties properties = ActorTrackedProperties(reader);
 			Assert::AreEqual((std::string)"", properties.GetActorName());
 		}

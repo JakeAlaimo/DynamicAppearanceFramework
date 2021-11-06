@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "CppUnitTest.h"
-#include "MockTraitTransformationReader.h"
+#include "MockConfigurationParser.h"
 #include "MockActorTrackedProperties.h"
 #include "../SharedFramework/src/TraitTransformationManager.h"
 
@@ -16,14 +16,14 @@ namespace SharedFrameworkTest
 	public:
 		TEST_METHOD(Constructor_Succeeds)
 		{
-			MockTraitTransformationReader reader = MockTraitTransformationReader();
+			MockConfigurationParser reader = MockConfigurationParser();
 			TraitTransformationManager manager = TraitTransformationManager(reader);
 		}
 
 		TEST_METHOD(ApplyAllTransformations_Succeeds)
 		{
 			std::shared_ptr<MockActorTrackedProperties> properties = std::make_shared<MockActorTrackedProperties>();
-			MockTraitTransformationReader reader = MockTraitTransformationReader();
+			MockConfigurationParser reader = MockConfigurationParser();
 			ActorState state = ActorState(properties, reader.defaultTransformations);
 
 			TraitTransformationManager manager = TraitTransformationManager(reader);
@@ -38,7 +38,7 @@ namespace SharedFrameworkTest
 		TEST_METHOD(ApplyAllTransformationsNoGroupsReturnsEmpty_Succeeds)
 		{
 			std::shared_ptr<MockActorTrackedProperties> properties = std::make_shared<MockActorTrackedProperties>();
-			MockTraitTransformationReader reader = MockTraitTransformationReader();
+			MockConfigurationParser reader = MockConfigurationParser();
 			ActorState state = ActorState(properties, reader.defaultTransformations);
 
 			reader.ClearGroups(); // just for testing
@@ -51,7 +51,7 @@ namespace SharedFrameworkTest
 		TEST_METHOD(RevertAllTransformations_Succeeds)
 		{
 			std::shared_ptr<MockActorTrackedProperties> properties = std::make_shared<MockActorTrackedProperties>();
-			MockTraitTransformationReader reader = MockTraitTransformationReader();
+			MockConfigurationParser reader = MockConfigurationParser();
 			ActorState state = ActorState(properties, reader.defaultTransformations);
 
 			TraitTransformationManager manager = TraitTransformationManager(reader);
@@ -66,7 +66,7 @@ namespace SharedFrameworkTest
 		TEST_METHOD(RevertAllTransformationsNoGroupsReturnsEmpty_Succeeds)
 		{
 			std::shared_ptr<MockActorTrackedProperties> properties = std::make_shared<MockActorTrackedProperties>();
-			MockTraitTransformationReader reader = MockTraitTransformationReader();
+			MockConfigurationParser reader = MockConfigurationParser();
 			ActorState state = ActorState(properties, reader.defaultTransformations);
 
 			reader.ClearGroups(); // just for testing
@@ -79,7 +79,7 @@ namespace SharedFrameworkTest
 		TEST_METHOD(ApplyTransformationGroup_Succeeds)
 		{
 			std::shared_ptr<MockActorTrackedProperties> properties = std::make_shared<MockActorTrackedProperties>();
-			MockTraitTransformationReader reader = MockTraitTransformationReader();
+			MockConfigurationParser reader = MockConfigurationParser();
 			ActorState state = ActorState(properties, reader.defaultTransformations);
 
 			TraitTransformationManager manager = TraitTransformationManager(reader);
@@ -91,7 +91,7 @@ namespace SharedFrameworkTest
 		TEST_METHOD(ApplyMissingTransformationGroupReturnsNull_Succeeds)
 		{
 			std::shared_ptr<MockActorTrackedProperties> properties = std::make_shared<MockActorTrackedProperties>();
-			MockTraitTransformationReader reader = MockTraitTransformationReader();
+			MockConfigurationParser reader = MockConfigurationParser();
 			ActorState state = ActorState(properties, reader.defaultTransformations);
 
 			TraitTransformationManager manager = TraitTransformationManager(reader);
@@ -103,7 +103,7 @@ namespace SharedFrameworkTest
 		TEST_METHOD(RevertTransformationGroup_Succeeds)
 		{
 			std::shared_ptr<MockActorTrackedProperties> properties = std::make_shared<MockActorTrackedProperties>();
-			MockTraitTransformationReader reader = MockTraitTransformationReader();
+			MockConfigurationParser reader = MockConfigurationParser();
 			ActorState state = ActorState(properties, reader.defaultTransformations);
 
 			TraitTransformationManager manager = TraitTransformationManager(reader);
@@ -115,7 +115,7 @@ namespace SharedFrameworkTest
 		TEST_METHOD(RevertMissingTransformationGroupReturnsNull_Succeeds)
 		{
 			std::shared_ptr<MockActorTrackedProperties> properties = std::make_shared<MockActorTrackedProperties>();
-			MockTraitTransformationReader reader = MockTraitTransformationReader();
+			MockConfigurationParser reader = MockConfigurationParser();
 			ActorState state = ActorState(properties, reader.defaultTransformations);
 
 			TraitTransformationManager manager = TraitTransformationManager(reader);

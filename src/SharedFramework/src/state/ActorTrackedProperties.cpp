@@ -1,21 +1,21 @@
 #include "ActorTrackedProperties.h"
 
-ActorTrackedProperties::ActorTrackedProperties(ITraitTransformationReader &transformationReader)
+ActorTrackedProperties::ActorTrackedProperties(IConfigurationParser &configurationParser)
 {
     //populate the tracked property map
-    for (std::string propertyName : transformationReader.GetTrackedProperties())
+    for (std::string propertyName : configurationParser.GetTrackedProperties())
     {
         m_trackedProperties[propertyName] = 0.0f;
     }
 
     //store property -> governed traits so we can determine traits modified by updating property values
-    m_managedTraitIDsByTrackedProperty = transformationReader.GetManagedTraitIDsByTrackedProperty();
+    m_managedTraitIDsByTrackedProperty = configurationParser.GetManagedTraitIDsByTrackedProperty();
 }
 
-ActorTrackedProperties::ActorTrackedProperties(ITraitTransformationReader &transformationReader, std::map<std::string, float> startingPropertyValues)
+ActorTrackedProperties::ActorTrackedProperties(IConfigurationParser &configurationParser, std::map<std::string, float> startingPropertyValues)
 {
     //populate the tracked property map
-    for (std::string propertyName : transformationReader.GetTrackedProperties())
+    for (std::string propertyName : configurationParser.GetTrackedProperties())
     {
         float propertyValue = 0.0f;
 
@@ -29,7 +29,7 @@ ActorTrackedProperties::ActorTrackedProperties(ITraitTransformationReader &trans
     }
 
     //store property -> governed traits so we can determine traits modified by updating property values
-    m_managedTraitIDsByTrackedProperty = transformationReader.GetManagedTraitIDsByTrackedProperty();
+    m_managedTraitIDsByTrackedProperty = configurationParser.GetManagedTraitIDsByTrackedProperty();
 }
 
 float ActorTrackedProperties::GetTrackedPropertyValue(std::string propertyName)

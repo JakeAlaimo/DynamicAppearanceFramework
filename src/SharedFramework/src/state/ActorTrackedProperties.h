@@ -1,7 +1,7 @@
 #pragma once
 #include <map>
 #include "IActorTrackedProperties.h"
-#include "../parse/ITraitTransformationReader.h"
+#include "../parse/IConfigurationParser.h"
 #include <memory>
 
 /// <summary>
@@ -11,10 +11,10 @@
 class ActorTrackedProperties: public IActorTrackedProperties
 {
 public:
-    ActorTrackedProperties(ITraitTransformationReader &transformationReader);
+    ActorTrackedProperties(IConfigurationParser &configurationParser);
 
     /// <summary>Sets starting property values to those specified (rather than 0 every time) </summary>
-    ActorTrackedProperties(ITraitTransformationReader &transformationReader, std::map<std::string, float> startingPropertyValues);
+    ActorTrackedProperties(IConfigurationParser & configurationParser, std::map<std::string, float> startingPropertyValues);
 
 
     /// <summary>Get this character's current value for a particular tracked property</summary>

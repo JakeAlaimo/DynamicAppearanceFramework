@@ -9,7 +9,7 @@
 /// Interface to a utility that reads in trait transformation specification files and provides 
 /// the object representations of those transformations
 /// </summary>
-class ITraitTransformationReader
+class IConfigurationParser
 {
 public:
     /// <summary>Provides transformation group indexed by the trait that group governs</summary>

@@ -2,7 +2,7 @@
 #include <string>
 #include <vector>
 #include "state/ActorState.h"
-#include "parse/ITraitTransformationReader.h"
+#include "parse/IConfigurationParser.h"
 
 /// <summary>
 /// Governs the dynamic manipulation of supported visual traits
@@ -11,8 +11,8 @@ class TraitTransformationManager
 {
 public:
     /// <summary>Creates a TraitTransformationManager instance for the player's particular configuration</summary>
-    /// <param name="transformationReader">A parser that has processed all of the trait transformation specifications this manager will use</param> 
-    TraitTransformationManager(ITraitTransformationReader &transformationReader);
+    /// <param name="configurationParser">A parser that has processed all of the trait transformation specifications this manager will use</param> 
+    TraitTransformationManager(IConfigurationParser &configurationParser);
 
     /// <summary>Processes and blends the results of all transformation groups on a particular actor, returning a list of the results</summary>
     /// <param name="actorState">The target actor's full state representation within this system</param>

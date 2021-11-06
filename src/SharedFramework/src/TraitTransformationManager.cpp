@@ -1,8 +1,8 @@
 #include "TraitTransformationManager.h"
 
-TraitTransformationManager::TraitTransformationManager(ITraitTransformationReader &transformationReader) 
+TraitTransformationManager::TraitTransformationManager(IConfigurationParser &configurationParser)
 {
-    m_traitTransformations = transformationReader.GetTransformationGroupsByTraitID();
+    m_traitTransformations = configurationParser.GetTransformationGroupsByTraitID();
 }
 
 std::vector<std::shared_ptr<ITransformation>> TraitTransformationManager::ApplyAllTransformationGroups(ActorState& actorState)

@@ -1,15 +1,15 @@
 #pragma once
-#include "../SharedFramework/src/parse/ITraitTransformationReader.h"
+#include "../SharedFramework/src/parse/IConfigurationParser.h"
 #include "../SharedFramework/src/state/DefaultTransformations.h"
 #include "MockTransformation.h"
 
-class MockTraitTransformationReader : public ITraitTransformationReader
+class MockConfigurationParser : public IConfigurationParser
 {
 public:
 
     std::shared_ptr<DefaultTransformations> defaultTransformations;
 
-    MockTraitTransformationReader()
+    MockConfigurationParser()
     {
         m_properties.emplace_back("Assaults");
         m_traitsByProperty["Assaults"].emplace_back("Eye Bags");

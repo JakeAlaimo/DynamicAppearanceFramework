@@ -35,13 +35,13 @@
     <ClInclude Include="pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MockTraitTransformationReader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="MockActorTrackedProperties.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MockTransformation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MockConfigurationParser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
