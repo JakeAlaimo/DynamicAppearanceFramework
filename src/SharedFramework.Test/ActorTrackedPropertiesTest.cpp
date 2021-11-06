@@ -3,8 +3,8 @@
 #include "../SharedFramework/src/state/ActorTrackedProperties.h"
 #include "MockConfigurationParser.h"
 
-
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
+using namespace DAF;
 
 namespace SharedFrameworkTest 
 {

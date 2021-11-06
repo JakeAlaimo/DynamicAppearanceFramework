@@ -5,20 +5,23 @@
 #include <memory>
 #include "../transformations/TransformationGroup.h"
 
-/// <summary>
-/// Interface to a utility that reads in trait transformation specification files and provides 
-/// the object representations of those transformations
-/// </summary>
-class IConfigurationParser
+namespace DAF
 {
-public:
-    /// <summary>Provides transformation group indexed by the trait that group governs</summary>
-    virtual std::map<std::string, std::shared_ptr<TransformationGroup>> GetTransformationGroupsByTraitID() = 0;
+    /// <summary>
+    /// Interface to a utility that reads in trait transformation specification files and provides 
+    /// the object representations of those transformations
+    /// </summary>
+    class IConfigurationParser
+    {
+    public:
+        /// <summary>Provides transformation group indexed by the trait that group governs</summary>
+        virtual std::map<std::string, std::shared_ptr<TransformationGroup>> GetTransformationGroupsByTraitID() = 0;
 
-    /// <summary>Gets a list of all the tracked properties that govern traits</summary>
-    virtual std::vector<std::string> GetTrackedProperties() = 0;
+        /// <summary>Gets a list of all the tracked properties that govern traits</summary>
+        virtual std::vector<std::string> GetTrackedProperties() = 0;
 
-    /// <summary>Provides a map of tracked properties to the traits they govern</summary>
-    virtual std::map<std::string, std::vector<std::string>> GetManagedTraitIDsByTrackedProperty() = 0;
-};
+        /// <summary>Provides a map of tracked properties to the traits they govern</summary>
+        virtual std::map<std::string, std::vector<std::string>> GetManagedTraitIDsByTrackedProperty() = 0;
+    };
+}
 

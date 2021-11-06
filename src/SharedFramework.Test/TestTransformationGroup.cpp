@@ -6,6 +6,7 @@
 #include "../SharedFramework/src/transformations/TransformationGroup.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
+using namespace DAF;
 
 namespace SharedFrameworkTest
 {

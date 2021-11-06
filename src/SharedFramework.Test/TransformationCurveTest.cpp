@@ -7,6 +7,7 @@
 
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
+using namespace DAF;
 
 namespace SharedFrameworkTest
 {

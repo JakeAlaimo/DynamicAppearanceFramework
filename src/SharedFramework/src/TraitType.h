@@ -1,9 +1,12 @@
 #pragma once
 
-/// <summary>
-/// The complete set of supported dynamic trait types
-/// </summary>
-enum class TraitType {
-    None,
-    Morph,
-};
+namespace DAF
+{
+    /// <summary>
+    /// The complete set of supported dynamic trait types
+    /// </summary>
+    enum class TraitType {
+        None,
+        Morph,
+    };
+}

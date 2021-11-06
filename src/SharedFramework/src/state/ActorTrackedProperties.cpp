@@ -1,83 +1,86 @@
 #include "ActorTrackedProperties.h"
 
-ActorTrackedProperties::ActorTrackedProperties(IConfigurationParser &configurationParser)
+namespace DAF
 {
-    //populate the tracked property map
-    for (std::string propertyName : configurationParser.GetTrackedProperties())
+    ActorTrackedProperties::ActorTrackedProperties(IConfigurationParser& configurationParser)
     {
-        m_trackedProperties[propertyName] = 0.0f;
-    }
-
-    //store property -> governed traits so we can determine traits modified by updating property values
-    m_managedTraitIDsByTrackedProperty = configurationParser.GetManagedTraitIDsByTrackedProperty();
-}
-
-ActorTrackedProperties::ActorTrackedProperties(IConfigurationParser &configurationParser, std::map<std::string, float> startingPropertyValues)
-{
-    //populate the tracked property map
-    for (std::string propertyName : configurationParser.GetTrackedProperties())
-    {
-        float propertyValue = 0.0f;
-
-        //use saved value if provided
-        if (startingPropertyValues.count(propertyName) == 1)
+        //populate the tracked property map
+        for (std::string propertyName : configurationParser.GetTrackedProperties())
         {
-            propertyValue = startingPropertyValues[propertyName];
+            m_trackedProperties[propertyName] = 0.0f;
         }
 
-        m_trackedProperties[propertyName] = propertyValue;
+        //store property -> governed traits so we can determine traits modified by updating property values
+        m_managedTraitIDsByTrackedProperty = configurationParser.GetManagedTraitIDsByTrackedProperty();
     }
 
-    //store property -> governed traits so we can determine traits modified by updating property values
-    m_managedTraitIDsByTrackedProperty = configurationParser.GetManagedTraitIDsByTrackedProperty();
-}
-
-float ActorTrackedProperties::GetTrackedPropertyValue(std::string propertyName)
-{
-    if (Contains(propertyName))
+    ActorTrackedProperties::ActorTrackedProperties(IConfigurationParser& configurationParser, std::map<std::string, float> startingPropertyValues)
     {
-        return m_trackedProperties[propertyName];
-    }
-    return 0.0f;
-}
+        //populate the tracked property map
+        for (std::string propertyName : configurationParser.GetTrackedProperties())
+        {
+            float propertyValue = 0.0f;
 
-std::vector<std::string> ActorTrackedProperties::SetTrackedPropertyValue(std::string propertyName, float value)
-{
-    if (Contains(propertyName))
+            //use saved value if provided
+            if (startingPropertyValues.count(propertyName) == 1)
+            {
+                propertyValue = startingPropertyValues[propertyName];
+            }
+
+            m_trackedProperties[propertyName] = propertyValue;
+        }
+
+        //store property -> governed traits so we can determine traits modified by updating property values
+        m_managedTraitIDsByTrackedProperty = configurationParser.GetManagedTraitIDsByTrackedProperty();
+    }
+
+    float ActorTrackedProperties::GetTrackedPropertyValue(std::string propertyName)
     {
-        m_trackedProperties[propertyName] = value;
-        return m_managedTraitIDsByTrackedProperty[propertyName];
+        if (Contains(propertyName))
+        {
+            return m_trackedProperties[propertyName];
+        }
+        return 0.0f;
     }
-    return std::vector<std::string>();
-}
 
-std::vector<TrackedProperty> ActorTrackedProperties::GetAllTrackedProperties()
-{
-    std::vector<TrackedProperty> trackedProperties;
-
-    for (std::pair<std::string, float> propertyPair : m_trackedProperties)
+    std::vector<std::string> ActorTrackedProperties::SetTrackedPropertyValue(std::string propertyName, float value)
     {
-        TrackedProperty property;
-        property.name = propertyPair.first;
-        property.value = propertyPair.second;
-
-        trackedProperties.push_back(property);
+        if (Contains(propertyName))
+        {
+            m_trackedProperties[propertyName] = value;
+            return m_managedTraitIDsByTrackedProperty[propertyName];
+        }
+        return std::vector<std::string>();
     }
 
-    return trackedProperties;
-}
+    std::vector<TrackedProperty> ActorTrackedProperties::GetAllTrackedProperties()
+    {
+        std::vector<TrackedProperty> trackedProperties;
 
-std::string ActorTrackedProperties::GetActorName() 
-{
-    return actorName;
-}
+        for (std::pair<std::string, float> propertyPair : m_trackedProperties)
+        {
+            TrackedProperty property;
+            property.name = propertyPair.first;
+            property.value = propertyPair.second;
 
-void ActorTrackedProperties::SetActorName(std::string newName) 
-{
-    actorName = newName;
-}
+            trackedProperties.push_back(property);
+        }
 
-bool ActorTrackedProperties::Contains(std::string propertyName)
-{
-    return (m_trackedProperties.count(propertyName) == 1);
+        return trackedProperties;
+    }
+
+    std::string ActorTrackedProperties::GetActorName()
+    {
+        return actorName;
+    }
+
+    void ActorTrackedProperties::SetActorName(std::string newName)
+    {
+        actorName = newName;
+    }
+
+    bool ActorTrackedProperties::Contains(std::string propertyName)
+    {
+        return (m_trackedProperties.count(propertyName) == 1);
+    }
 }

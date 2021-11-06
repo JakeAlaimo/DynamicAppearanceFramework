@@ -3,6 +3,8 @@
 #include "../SharedFramework/src/state/DefaultTransformations.h"
 #include "MockTransformation.h"
 
+using namespace DAF;
+
 class MockConfigurationParser : public IConfigurationParser
 {
 public:

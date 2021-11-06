@@ -1,6 +1,8 @@
 #pragma once
 #include "../SharedFramework/src/state/IActorTrackedProperties.h"
 
+using namespace DAF;
+
 class MockActorTrackedProperties : public IActorTrackedProperties
 {
 public:

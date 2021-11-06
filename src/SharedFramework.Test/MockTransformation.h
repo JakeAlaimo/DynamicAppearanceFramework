@@ -1,6 +1,8 @@
 #pragma once
 #include "../SharedFramework/src/transformations/ITransformation.h"
 
+using namespace DAF;
+
 class MockTransformation : public ITransformation
 {
 public:
