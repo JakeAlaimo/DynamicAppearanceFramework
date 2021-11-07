@@ -33,7 +33,7 @@ namespace DAF
             trait1Property2Curve->AddKey(maxTranformationTrait1, 20.0f);
 
             m_groupsByTrait["Trait 1"]->AddTransformationCurve(trait1Property1Curve, "");
-            m_groupsByTrait["Trait 1"]->AddTransformationCurve(trait1Property1OverrideCurve, "");
+            m_groupsByTrait["Trait 1"]->AddTransformationCurve(trait1Property1OverrideCurve, "Override");
             m_groupsByTrait["Trait 1"]->AddTransformationCurve(trait1Property2Curve, "");
             
             m_traitsByProperty["Property 1"].emplace_back("Trait 1"); // explicate the properties that govern trait 1
