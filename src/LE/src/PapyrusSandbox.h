@@ -40,6 +40,14 @@ public:
 	static void UnregisterActor(StaticFunctionTag* base, Actor* actor, bool revertAppearance);
 
 	/// <summary>
+	/// Retrieves a specific actor's current tracked property state value
+	/// </summary>
+	/// <param name="base">Specifies that this corresponds to a global papyrus function</param>
+	/// <param name="actor">The specific actor whose state should be retrieved</param>
+	/// <param name="propertyName">The specific tracked property to retrieve</param>
+	static float GetTrackedProperty(StaticFunctionTag* base, Actor* actor, BSFixedString propertyName);
+
+	/// <summary>
 	/// Mutates a specific actor's tracked property state, adjusting their dynamic appearance 
 	/// </summary>
 	/// <param name="base">Specifies that this corresponds to a global papyrus function</param>

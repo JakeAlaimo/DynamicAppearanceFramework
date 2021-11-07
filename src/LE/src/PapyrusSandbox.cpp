@@ -3,6 +3,10 @@
 #include "skse/PapyrusActor.h"
 #include "skse/GameObjects.h"
 
+//TODO: remove this
+#include "transformations/MorphTransformation.h"
+
+
 std::shared_ptr<DAF::TraitTransformationManager> PapyrusSandbox::m_traitTransformationManager;
 std::shared_ptr<ActorStateRegistry> PapyrusSandbox::m_actorStateRegistry;
 
@@ -30,6 +34,7 @@ bool PapyrusSandbox::RegisterActor(StaticFunctionTag* base, Actor* actor)
 			m_traitTransformationManager->ApplyAllTransformationGroups(*m_actorStateRegistry->GetActorState(actor));
 
 		//TODO: apply traits here ~
+		_MESSAGE("Registered: %s\n", CALL_MEMBER_FN(actor, GetReferenceName)());
 	}
 
 	return registered;
@@ -39,6 +44,8 @@ void PapyrusSandbox::UnregisterActor(StaticFunctionTag* base, Actor* actor, bool
 {
 	if (actor == nullptr || m_actorStateRegistry->GetActorState(actor) == nullptr)
 		return;
+
+	_MESSAGE("Unregistered: %s\n", CALL_MEMBER_FN(actor, GetReferenceName)());
 
 	if (revertAppearance)
 	{
@@ -51,6 +58,14 @@ void PapyrusSandbox::UnregisterActor(StaticFunctionTag* base, Actor* actor, bool
 	m_actorStateRegistry->UnregisterActor(actor);
 }
 
+float PapyrusSandbox::GetTrackedProperty(StaticFunctionTag* base, Actor* actor, BSFixedString propertyName)
+{
+	std::shared_ptr<DAF::ActorState> state = m_actorStateRegistry->GetActorState(actor);
+	if (state == nullptr)
+		return 0.0f;
+	return state->trackedProperties->GetTrackedPropertyValue(propertyName.data);
+}
+
 void PapyrusSandbox::SetTrackedProperty(StaticFunctionTag* base, Actor* actor, BSFixedString propertyName, float propertyValue)
 {
 	std::shared_ptr<DAF::ActorState> state = m_actorStateRegistry->GetActorState(actor);
@@ -58,19 +73,26 @@ void PapyrusSandbox::SetTrackedProperty(StaticFunctionTag* base, Actor* actor, B
 	if (state == nullptr)
 		return;
 
+	// player may have changed names, update internal representation so that overrides work correctly
+	state->trackedProperties->SetActorName(CALL_MEMBER_FN(actor, GetReferenceName)());
+
+	_MESSAGE("SetTrackedProperty: %s, %s", CALL_MEMBER_FN(actor, GetReferenceName)(), propertyName);
+
 	// set new tracked property state and adjust the impacted visual traits
 	std::vector<std::string> modifiedTraits = state->trackedProperties->SetTrackedPropertyValue(propertyName.data, propertyValue);
 	for (std::string trait : modifiedTraits)
 	{
 		std::shared_ptr<DAF::ITransformation> traitTransformation = m_traitTransformationManager->ApplyTransformationGroup(trait, *state);
 		//TODO: apply trait here ~
+		DAF::MorphTransformation::Data data = *reinterpret_cast<DAF::MorphTransformation::Data*>(traitTransformation->GetTransformationData());
+		papyrusActorBase::SetFaceMorph((TESNPC*)actor->baseForm, data.value, data.index);
+		//papyrusActor::QueueNiNodeUpdate(actor);
+
+		_MESSAGE("%s -> %f", trait.data(), data.value);
 	}
 
-	//dummy test code below - remove when able
-	papyrusActorBase::SetFaceMorph((TESNPC *)actor->baseForm, propertyValue, 4);
-	//papyrusActor::QueueNiNodeUpdate(actor);
-
-	_MESSAGE(propertyName.data);
+	_MESSAGE("New Property Value: %f", state->trackedProperties->GetTrackedPropertyValue(propertyName.data));
+	_MESSAGE("");
 }
 
 bool PapyrusSandbox::RegisterFunctions(VMClassRegistry* registry)
@@ -80,10 +102,13 @@ bool PapyrusSandbox::RegisterFunctions(VMClassRegistry* registry)
 	registry->RegisterFunction(
 		new NativeFunction2 <StaticFunctionTag, void, Actor*, bool>("UnregisterActor", "DynamicAppearanceFramework", UnregisterActor, registry));
 	registry->RegisterFunction(
+		new NativeFunction2 <StaticFunctionTag, float, Actor*, BSFixedString>("GetTrackedProperty", "DynamicAppearanceFramework", GetTrackedProperty, registry));
+	registry->RegisterFunction(
 		new NativeFunction3 <StaticFunctionTag, void, Actor*, BSFixedString, float>("SetTrackedProperty", "DynamicAppearanceFramework", SetTrackedProperty, registry));
 	
 	registry->SetFunctionFlags("DynamicAppearanceFramework", "RegisterActor", VMClassRegistry::kFunctionFlag_NoWait);
 	registry->SetFunctionFlags("DynamicAppearanceFramework", "UnregisterActor", VMClassRegistry::kFunctionFlag_NoWait);
+	registry->SetFunctionFlags("DynamicAppearanceFramework", "GetTrackedProperty", VMClassRegistry::kFunctionFlag_NoWait);
 	registry->SetFunctionFlags("DynamicAppearanceFramework", "SetTrackedProperty", VMClassRegistry::kFunctionFlag_NoWait);
 
 	return true;
