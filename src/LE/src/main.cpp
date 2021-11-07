@@ -3,7 +3,10 @@
 #include "skse/SafeWrite.h"
 #include "skse/GameAPI.h"
 
+#include "parse/MockConfigurationParser.h"
 #include "PapyrusSandbox.h"
+
+
 
 IDebugLog	gLog("DynamicAppearanceFramework.log");
 PluginHandle	g_pluginHandle = kPluginHandle_Invalid;
@@ -77,11 +80,12 @@ extern "C"
 		g_serialization->SetLoadCallback(g_pluginHandle, Serialization_Load);
 
 		// prepare the papyrus function environment - doesn't need to happen here
-		PapyrusSandbox::SandboxDependencies dependencies;
-		dependencies.stateRegistry = nullptr;
-		dependencies.transformationManager = nullptr;
+		std::shared_ptr<DAF::MockConfigurationParser> mockParser = std::make_shared<DAF::MockConfigurationParser>();
 
-		PapyrusSandbox::ConfigureSandbox(dependencies); // note that null dependencies will crash the dll
+		PapyrusSandbox::SandboxDependencies dependencies;
+		dependencies.stateRegistry = std::make_shared<ActorStateRegistry>(mockParser);
+		dependencies.transformationManager = std::make_shared<DAF::TraitTransformationManager>(*mockParser);
+		PapyrusSandbox::ConfigureSandbox(dependencies);
 
 		// register the papyrus functions that allow scripts to access the new event
 		g_papyrusInterface = (SKSEPapyrusInterface*)skse->QueryInterface(kInterface_Papyrus);
