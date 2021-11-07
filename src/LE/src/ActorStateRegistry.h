@@ -1,5 +1,5 @@
 #pragma once
-#include "skse/GameObjects.h"
+#include "skse/GameReferences.h"
 #include "state/ActorState.h"
 #include "parse/IConfigurationParser.h"
 
@@ -42,8 +42,8 @@ public:
 
 private:
 
-    /// <summary>Internal mapping of actor to their state representation</summary>
-    std::map<Actor*, std::shared_ptr<DAF::ActorState>> m_statesByActor;
+    /// <summary>Internal mapping of actor formID to their state representation</summary>
+    std::map<UINT32, std::shared_ptr<DAF::ActorState>> m_statesByActorID;
 
     /// <summary>Internal reference to the framework configuration. Needed to inform new actor state creation</summary>
     std::shared_ptr<DAF::IConfigurationParser> m_configurationParser;
