@@ -63,6 +63,12 @@
     <ClInclude Include="src\parse\IConfigurationParser.h">
       <Filter>Header Files\parse</Filter>
     </ClInclude>
+    <ClInclude Include="src\transformations\MorphTransformation.h">
+      <Filter>Header Files\transformations</Filter>
+    </ClInclude>
+    <ClInclude Include="src\parse\MockConfigurationParser.h">
+      <Filter>Header Files\parse</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\TraitTransformationManager.cpp">
@@ -78,6 +84,9 @@
       <Filter>Source Files\transformations</Filter>
     </ClCompile>
     <ClCompile Include="src\transformations\TransformationCurve.cpp">
+      <Filter>Source Files\transformations</Filter>
+    </ClCompile>
+    <ClCompile Include="src\transformations\MorphTransformation.cpp">
       <Filter>Source Files\transformations</Filter>
     </ClCompile>
   </ItemGroup>

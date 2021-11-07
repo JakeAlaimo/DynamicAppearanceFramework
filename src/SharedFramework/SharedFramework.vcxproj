@@ -20,12 +20,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\parse\IConfigurationParser.h" />
+    <ClInclude Include="src\parse\MockConfigurationParser.h" />
     <ClInclude Include="src\state\ActorState.h" />
     <ClInclude Include="src\state\ActorTrackedProperties.h" />
     <ClInclude Include="src\state\DefaultTransformations.h" />
     <ClInclude Include="src\state\IActorTrackedProperties.h" />
     <ClInclude Include="src\TraitType.h" />
     <ClInclude Include="src\TraitTransformationManager.h" />
+    <ClInclude Include="src\transformations\MorphTransformation.h" />
     <ClInclude Include="src\transformations\TransformationGroup.h" />
     <ClInclude Include="src\transformations\ITransformation.h" />
     <ClInclude Include="src\transformations\TransformationCurve.h" />
@@ -34,6 +36,7 @@
     <ClCompile Include="src\state\ActorTrackedProperties.cpp" />
     <ClCompile Include="src\state\DefaultTransformations.cpp" />
     <ClCompile Include="src\TraitTransformationManager.cpp" />
+    <ClCompile Include="src\transformations\MorphTransformation.cpp" />
     <ClCompile Include="src\transformations\TransformationCurve.cpp" />
     <ClCompile Include="src\transformations\TransformationGroup.cpp" />
   </ItemGroup>
