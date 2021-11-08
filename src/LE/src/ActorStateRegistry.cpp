@@ -16,7 +16,7 @@ ActorStateRegistry::ActorStateRegistry(std::shared_ptr<DAF::IConfigurationParser
 
 bool ActorStateRegistry::RegisterActor(Actor* actor) 
 {
-    if (m_statesByActorID.count(actor->formID) == 0)
+    if (m_statesByActorID.count(actor->baseForm->formID) == 0)
     {
         // create new state objects for the actor
         std::shared_ptr<DAF::ActorTrackedProperties> newProperties = std::make_shared<DAF::ActorTrackedProperties>(*m_configurationParser);
@@ -33,7 +33,7 @@ bool ActorStateRegistry::RegisterActor(Actor* actor)
 
         // bundle the actor state and add to the registry
         std::shared_ptr<DAF::ActorState> thisActorState = std::make_shared<DAF::ActorState>(newProperties, newDefaults);
-        m_statesByActorID[actor->formID] = thisActorState;
+        m_statesByActorID[actor->baseForm->formID] = thisActorState;
         return true;
     }
     else
@@ -44,17 +44,17 @@ bool ActorStateRegistry::RegisterActor(Actor* actor)
 
 void ActorStateRegistry::UnregisterActor(Actor* actor)
 {
-    if (m_statesByActorID.count(actor->formID) == 1)
+    if (m_statesByActorID.count(actor->baseForm->formID) == 1)
     {
-        m_statesByActorID.erase(actor->formID);
+        m_statesByActorID.erase(actor->baseForm->formID);
     }
 }
 
 std::shared_ptr<DAF::ActorState> ActorStateRegistry::GetActorState(Actor* actor)
 {
-    if (m_statesByActorID.count(actor->formID) == 1)
+    if (m_statesByActorID.count(actor->baseForm->formID) == 1)
     {
-        return m_statesByActorID[actor->formID];
+        return m_statesByActorID[actor->baseForm->formID];
     }
 
     return nullptr;
