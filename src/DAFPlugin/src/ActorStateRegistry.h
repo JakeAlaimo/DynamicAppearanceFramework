@@ -1,5 +1,5 @@
 #pragma once
-#include "skse/GameReferences.h"
+#include "GameReferences.h"
 #include "state/ActorState.h"
 #include "parse/IConfigurationParser.h"
 

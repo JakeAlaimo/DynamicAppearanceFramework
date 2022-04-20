@@ -1,7 +1,7 @@
-#include "skse/PluginAPI.h"
-#include "skse/skse_version.h"
-#include "skse/SafeWrite.h"
-#include "skse/GameAPI.h"
+#include "PluginAPI.h"
+#include "skse_version.h"
+#include "SafeWrite.h"
+#include "GameAPI.h"
 
 #include "parse/MockConfigurationParser.h"
 #include "PapyrusSandbox.h"
