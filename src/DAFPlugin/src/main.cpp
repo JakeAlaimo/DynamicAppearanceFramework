@@ -6,8 +6,6 @@
 #include "parse/MockConfigurationParser.h"
 #include "PapyrusSandbox.h"
 
-
-
 IDebugLog	gLog("DynamicAppearanceFramework.log");
 PluginHandle	g_pluginHandle = kPluginHandle_Invalid;
 SKSESerializationInterface* g_serialization = NULL;
@@ -32,7 +30,7 @@ void Serialization_Load(SKSESerializationInterface* intfc)
 
 extern "C"
 {
-	bool SKSEPlugin_Query(const SKSEInterface* skse, PluginInfo* info)
+	__declspec(dllexport) bool SKSEPlugin_Query(const SKSEInterface* skse, PluginInfo* info)
 	{
 		// populate info structure
 		info->infoVersion = PluginInfo::kInfoVersion;
@@ -42,11 +40,18 @@ extern "C"
 		// store plugin handle so we can identify ourselves later
 		g_pluginHandle = skse->GetPluginHandle();
 
+		UINT32 targetRuntime = 0;
+#ifdef LE_BUILD
+		targetRuntime = RUNTIME_VERSION_1_9_32_0;
+#else
+		targetRuntime = RUNTIME_VERSION_1_5_97;
+#endif
+
 		if (skse->isEditor)
 		{
 			return false;
 		}
-		else if (skse->runtimeVersion != RUNTIME_VERSION_1_9_32_0)
+		else if (skse->runtimeVersion != targetRuntime)
 		{
 			return false;
 		}
@@ -69,7 +74,7 @@ extern "C"
 		return true;
 	}
 
-	bool SKSEPlugin_Load(const SKSEInterface* skse)
+	__declspec(dllexport) bool SKSEPlugin_Load(const SKSEInterface* skse)
 	{
 		// register callbacks and unique ID for serialization
 		// ### this must be a UNIQUE ID
@@ -87,7 +92,7 @@ extern "C"
 		dependencies.transformationManager = std::make_shared<DAF::TraitTransformationManager>(*mockParser);
 		PapyrusSandbox::ConfigureSandbox(dependencies);
 
-		// register the papyrus functions that allow scripts to access the new event
+		// register the papyrus functions that allow scripts to access the framework
 		g_papyrusInterface = (SKSEPapyrusInterface*)skse->QueryInterface(kInterface_Papyrus);
 		g_papyrusInterface->Register(PapyrusSandbox::RegisterFunctions);
 
