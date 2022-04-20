@@ -2,6 +2,7 @@
   <PropertyGroup Label="UserMacros">
       <SKSEDir>../../../SKSE/LE/skse/</SKSEDir>
       <SKSE64Dir>../../../SKSE/SE/skse64/</SKSE64Dir>
+      <SKSE64DirAE>../../../SKSE/AE/skse64/</SKSE64DirAE>
       <LEPluginPath>C:\Program Files (x86)\Steam\steamapps\common\Skyrim\Data\SKSE\Plugins</LEPluginPath>
       <SEPluginPath>C:\Program Files (x86)\Steam\steamapps\common\Skyrim Special Edition\Data\SKSE\Plugins</SEPluginPath>
   </PropertyGroup>
