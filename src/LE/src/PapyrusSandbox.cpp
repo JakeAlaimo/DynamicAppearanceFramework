@@ -4,7 +4,12 @@
 #include "skse/GameObjects.h"
 
 //TODO: remove this
+#include "skse/GameData.h"
 #include "transformations/MorphTransformation.h"
+#include "chargen/MorphHandler.h"
+#include "chargen/PapyrusCharGen.h"
+
+extern MorphHandler g_morphHandler;
 
 
 std::shared_ptr<DAF::TraitTransformationManager> PapyrusSandbox::m_traitTransformationManager;
@@ -42,6 +47,9 @@ bool PapyrusSandbox::RegisterActor(StaticFunctionTag* base, Actor* actor)
 
 void PapyrusSandbox::UnregisterActor(StaticFunctionTag* base, Actor* actor, bool revertAppearance)
 {
+	(*g_thePlayer)->UpdateSkinColor();
+	UpdatePlayerTints();
+
 	if (actor == nullptr || m_actorStateRegistry->GetActorState(actor) == nullptr)
 		return;
 
@@ -85,8 +93,23 @@ void PapyrusSandbox::SetTrackedProperty(StaticFunctionTag* base, Actor* actor, B
 		std::shared_ptr<DAF::ITransformation> traitTransformation = m_traitTransformationManager->ApplyTransformationGroup(trait, *state);
 		//TODO: apply trait here ~
 		DAF::MorphTransformation::Data data = *reinterpret_cast<DAF::MorphTransformation::Data*>(traitTransformation->GetTransformationData());
-		papyrusActorBase::SetFaceMorph((TESNPC*)actor->baseForm, data.value, data.index);
-		//papyrusActor::QueueNiNodeUpdate(actor);
+		
+		PresetDataPtr dataPtr = g_morphHandler.ReadCurrentStateAsPreset(actor);
+		for (size_t i = 0; i < dataPtr->morphs.size(); i++)
+		{
+			dataPtr->morphs[i] = data.value;
+
+		}
+		g_morphHandler.AssignPreset(dynamic_cast<TESNPC*>(actor->baseForm), dataPtr);
+		g_morphHandler.ApplyPresetData(actor, dataPtr, true, MorphHandler::ApplyTypes::kPresetApplyAll);
+
+		//ApplyPreset(actor, actor->race, dynamic_cast<TESNPC*>(actor->baseForm), , MorphHandler::ApplyTypes::kPresetApplyAll);
+		for (size_t i = 0; i < dataPtr->headParts.size(); i++)
+		{
+			//g_morphHandler.ApplyPreset(dynamic_cast<TESNPC*>(actor->baseForm), actor->GetFaceGenNiNode(), dataPtr->headParts[i]);
+		}
+
+		//temp delete
 
 		_MESSAGE("%s -> %f", trait.data(), data.value);
 	}

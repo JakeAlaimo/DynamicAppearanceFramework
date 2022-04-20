@@ -5,8 +5,9 @@
 
 #include "parse/MockConfigurationParser.h"
 #include "PapyrusSandbox.h"
-
-
+#include "chargen/Chargen.h"
+#include "chargen/MorphHandler.h"
+extern MorphHandler g_morphHandler;
 
 IDebugLog	gLog("DynamicAppearanceFramework.log");
 PluginHandle	g_pluginHandle = kPluginHandle_Invalid;
@@ -17,18 +18,36 @@ SKSEPapyrusInterface* g_papyrusInterface = NULL;
 
 const UInt32 kSerializationDataVersion = 1;
 
-void Serialization_Revert(SKSESerializationInterface* intfc) //between save loads, revert to default value
+void Serialization_Revert(SKSESerializationInterface* intfc)
 {
+	g_morphHandler.Revert();
 }
 
 void Serialization_Save(SKSESerializationInterface* intfc)
 {
+	_DMESSAGE("Saving...");
+
+	/*PlayerCharacter* player = (*g_thePlayer);
+	TESNPC* playerBase = DYNAMIC_CAST(player->baseForm, TESForm, TESNPC);
+
+	g_morphHandler.Save(playerBase, intfc, kSerializationDataVersion);*/
+
+	_DMESSAGE("Save Complete.");
 }
 
 void Serialization_Load(SKSESerializationInterface* intfc)
 {
-}
+	_DMESSAGE("Loading...");
 
+	/*PlayerCharacter* player = (*g_thePlayer);
+	TESNPC* playerBase = DYNAMIC_CAST(player->baseForm, TESForm, TESNPC);
+
+	g_morphHandler.Load(playerBase, intfc, kSerializationDataVersion);
+
+	g_task->AddTask(new SKSETaskApplyMorphs(player));*/
+
+	_DMESSAGE("Load Complete.");
+}
 
 extern "C"
 {
@@ -62,6 +81,9 @@ extern "C"
 			return false;
 		}
 
+		// call chargen query callback
+		Chargen_Query(skse, info);
+
 		// ### do not do anything else in this callback
 		// ### only fill out PluginInfo and return true/false
 
@@ -90,6 +112,9 @@ extern "C"
 		// register the papyrus functions that allow scripts to access the new event
 		g_papyrusInterface = (SKSEPapyrusInterface*)skse->QueryInterface(kInterface_Papyrus);
 		g_papyrusInterface->Register(PapyrusSandbox::RegisterFunctions);
+
+		// call chargen load callback
+		Chargen_Load(skse);
 
 		return true;
 	}
