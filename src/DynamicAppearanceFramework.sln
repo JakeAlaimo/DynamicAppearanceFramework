@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SharedFramework", "SharedFramework\SharedFramework.vcxproj", "{89B3240F-14B7-4772-AA08-A3F639B1344F}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LE", "LE\LE.vcxproj", "{841BCE87-D6A9-4D48-A716-4142371EE741}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DAFPlugin", "DAFPlugin\DAFPlugin.vcxproj", "{841BCE87-D6A9-4D48-A716-4142371EE741}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SharedFramework.Test", "SharedFramework.Test\SharedFramework.Test.vcxproj", "{FBCCDBBC-B2DA-45B9-AEE2-1A91AF5E4392}"
 EndProject
