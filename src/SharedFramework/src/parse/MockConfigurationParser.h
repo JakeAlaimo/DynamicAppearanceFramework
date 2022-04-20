@@ -17,8 +17,8 @@ namespace DAF
             m_properties.emplace_back("Property 3");
 
             // define transformations "read" in
-            std::shared_ptr<MorphTransformation> maxTranformationTrait1 = std::make_shared<MorphTransformation>(0, 1.0f);
-            std::shared_ptr<MorphTransformation> maxTranformationTrait2 = std::make_shared<MorphTransformation>(1, 1.0f);
+            std::shared_ptr<MorphTransformation> maxTranformationTrait1 = std::make_shared<MorphTransformation>(1, 1.0f);
+            std::shared_ptr<MorphTransformation> maxTranformationTrait2 = std::make_shared<MorphTransformation>(2, 1.0f);
 
             // "configure" each trait individually
 

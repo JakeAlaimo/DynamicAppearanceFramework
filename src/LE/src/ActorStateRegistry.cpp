@@ -26,8 +26,8 @@ bool ActorStateRegistry::RegisterActor(Actor* actor)
         newProperties->SetActorName(CALL_MEMBER_FN(actor, GetReferenceName)());
 
         // TODO: populate defaults in a non hard-coded manner
-        std::shared_ptr<DAF::MorphTransformation> defaultTranformationTrait1 = std::make_shared<DAF::MorphTransformation>(0, 0.0f);
-        std::shared_ptr<DAF::MorphTransformation> defaultTranformationTrait2 = std::make_shared<DAF::MorphTransformation>(1, 0.5f);
+        std::shared_ptr<DAF::MorphTransformation> defaultTranformationTrait1 = std::make_shared<DAF::MorphTransformation>(1, 0.0f);
+        std::shared_ptr<DAF::MorphTransformation> defaultTranformationTrait2 = std::make_shared<DAF::MorphTransformation>(2, 0.5f);
         newDefaults->SetDefaultOfTrait("Trait 1", defaultTranformationTrait1);
         newDefaults->SetDefaultOfTrait("Trait 2", defaultTranformationTrait2);
 
