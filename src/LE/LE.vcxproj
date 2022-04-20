@@ -74,17 +74,17 @@
     <LinkIncremental>true</LinkIncremental>
     <LibraryPath>$(SKSEDir)../common/Debug;$(SKSEDir)/Debug;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86)</LibraryPath>
     <IncludePath>../SharedFramework/src;$(SKSEDir)..;$(SKSEDir);$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
-    <IntDir>obj\$(Configuration)\</IntDir>
+    <IntDir>obj\$(Platform)\$(Configuration)\</IntDir>
     <TargetName>DynamicAppearanceFramework</TargetName>
-    <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
+    <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <LibraryPath>$(SKSEDir)../common/Release;$(SKSEDir)/Release;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86)</LibraryPath>
     <IncludePath>../SharedFramework/src;$(SKSEDir)..;$(SKSEDir);$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
-    <IntDir>obj\$(Configuration)\</IntDir>
+    <IntDir>obj\$(Platform)\$(Configuration)\</IntDir>
     <TargetName>DynamicAppearanceFramework</TargetName>
-    <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
+    <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
