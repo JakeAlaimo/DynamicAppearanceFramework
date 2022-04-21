@@ -1,6 +1,6 @@
 #pragma once
-#include "skse/PapyrusNativeFunctions.h"
-#include "skse/GameReferences.h"
+#include "PapyrusNativeFunctions.h"
+#include "GameReferences.h"
 #include "ActorStateRegistry.h"
 #include "TraitTransformationManager.h"
 

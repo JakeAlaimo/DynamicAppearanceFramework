@@ -1,7 +1,7 @@
 #include "PapyrusSandbox.h"
-#include "skse/PapyrusActorBase.h"
-#include "skse/PapyrusActor.h"
-#include "skse/GameObjects.h"
+#include "PapyrusActorBase.h"
+#include "PapyrusActor.h"
+#include "GameObjects.h"
 
 //TODO: remove this
 #include "skse/GameData.h"
