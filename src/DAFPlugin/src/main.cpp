@@ -11,8 +11,8 @@ PluginHandle	g_pluginHandle = kPluginHandle_Invalid;
 SKSESerializationInterface* g_serialization = NULL;
 SKSEPapyrusInterface* g_papyrusInterface = NULL;
 
-/**** serialization ****/
-
+// TODO: move serialization into its own file
+#pragma region Serialization
 const UInt32 kSerializationDataVersion = 1;
 
 void Serialization_Revert(SKSESerializationInterface* intfc) //between save loads, revert to default value
@@ -26,10 +26,26 @@ void Serialization_Save(SKSESerializationInterface* intfc)
 void Serialization_Load(SKSESerializationInterface* intfc)
 {
 }
+#pragma endregion
 
+#pragma region Plugin Interface
 
 extern "C"
 {
+#if defined AE_BUILD
+	__declspec(dllexport) SKSEPluginVersionData SKSEPlugin_Version =
+	{
+		SKSEPluginVersionData::kVersion,
+		1,
+		"DynamicAppearanceFrameworkAE",
+		"Jake Alaimo",
+		"",
+		0,	// not version independent - perhaps might want to do something about that
+		{ RUNTIME_VERSION_1_6_353, 0 },
+		0,
+	};
+
+#else
 	__declspec(dllexport) bool SKSEPlugin_Query(const SKSEInterface* skse, PluginInfo* info)
 	{
 		// populate info structure
@@ -45,6 +61,7 @@ extern "C"
 		targetRuntime = RUNTIME_VERSION_1_9_32_0;
 #else
 		targetRuntime = RUNTIME_VERSION_1_5_97;
+		info->name = "DynamicAppearanceFrameworkSE";
 #endif
 
 		if (skse->isEditor)
@@ -73,9 +90,16 @@ extern "C"
 		// supported runtime version
 		return true;
 	}
+#endif
 
 	__declspec(dllexport) bool SKSEPlugin_Load(const SKSEInterface* skse)
 	{
+#ifdef AE_BUILD
+		// in the case of AE, plugin handle and interfaces are not grabbed yet as SKSEPlugin_Query never fires
+		g_pluginHandle = skse->GetPluginHandle();
+		g_serialization = (SKSESerializationInterface*)skse->QueryInterface(kInterface_Serialization);
+#endif // AE_BUILD
+
 		// register callbacks and unique ID for serialization
 		// ### this must be a UNIQUE ID
 		g_serialization->SetUniqueID(g_pluginHandle, 0xDAF6A2A7);
@@ -98,5 +122,6 @@ extern "C"
 
 		return true;
 	}
-
 };
+
+#pragma endregion
