@@ -48,7 +48,6 @@ void Serialization_Load(SKSESerializationInterface* intfc)
 
 	_DMESSAGE("Load Complete.");
 }
-}
 #pragma endregion
 
 #pragma region Plugin Interface
